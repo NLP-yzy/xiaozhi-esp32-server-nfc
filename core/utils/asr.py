@@ -96,7 +96,7 @@ class FunASR(ASR):
             # 文件清理逻辑
             if self.delete_audio_file and file_path and os.path.exists(file_path):
                 try:
-                    os.remove(file_path)
+                    # os.remove(file_path)
                     logger.debug(f"已删除临时音频文件: {file_path}")
                 except Exception as e:
                     logger.error(f"文件删除失败: {file_path} | 错误: {e}")
