@@ -1,0 +1,907 @@
+2025-03-01 11:22:46,522 - core.utils.vad - INFO - SileroVAD
+funasr version: 1.1.12.
+2025-03-01 11:22:46,635 - root - INFO - download models from model hub: hf
+2025-03-01 11:22:48,213 - root - INFO - Loading pretrained params from models/SenseVoiceSmall/model.pt
+2025-03-01 11:22:48,219 - root - INFO - ckpt: models/SenseVoiceSmall/model.pt
+/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/funasr/train_utils/load_pretrained_model.py:39: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ori_state = torch.load(path, map_location=map_location)
+2025-03-01 11:22:49,210 - root - INFO - scope_map: ['module.', 'None']
+2025-03-01 11:22:49,211 - root - INFO - excludes: None
+2025-03-01 11:22:49,334 - root - INFO - Loading ckpt: models/SenseVoiceSmall/model.pt, status: <All keys matched successfully>
+2025-03-01 11:22:50,333 - core.websocket_server - INFO - =======下面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-03-01 11:22:50,333 - core.websocket_server - INFO - Server is running at ws://192.168.39.203:10664
+2025-03-01 11:22:50,333 - core.websocket_server - INFO - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-03-01 11:22:50,341 - websockets.server - INFO - server listening on 0.0.0.0:10664
+2025-03-01 11:26:58,924 - websockets.server - INFO - connection open
+2025-03-01 11:26:58,925 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '91b58895-dfe8-4840-9bae-3f73095d02f6', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:b8', 'protocol-version': '1', 'sec-websocket-key': 'dfiQRnnK/6necOGl3q/qDg==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-01 11:26:58,925 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:b8
+2025-03-01 11:26:58,925 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '126a5f92-af9a-460d-bf51-eac956f5a161'}
+2025-03-01 11:26:58,991 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-01 11:26:59,033 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-01 11:26:59,110 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-01 11:26:59,110 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":90}}]}
+2025-03-01 11:27:00,670 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-01 11:27:00,719 - core.utils.asr - INFO - 音频文件保存耗时: 0.005s | 路径: tmp/asr_126a5f92-af9a-460d-bf51-eac956f5a161_e8e994fc-1c3a-431a-86b5-9ae5ad5dc2ab.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.01it/s]{'load_data': '0.007', 'extract_feat': '0.006', 'forward': '0.332', 'batch_size': '1', 'rtf': '0.205'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.01it/s]rtf_avg: 0.205: 100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.01it/s]                                                                                          rtf_avg: 0.205: 100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.00it/s]
+2025-03-01 11:27:01,059 - core.utils.asr - INFO - 语音识别耗时: 0.340s | 结果: 你好你好。
+2025-03-01 11:27:01,059 - core.handle.audioHandle - INFO - 识别文本: 你好你好。
+2025-03-01 11:27:01,060 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-01 11:27:01,060 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-01 11:27:01,349 - core.connection - INFO - 大模型说出第一句话: 你好呀
+1
+1
+2025-03-01 11:27:01,974 - core.providers.tts.base - INFO - 语音生成成功: 你好呀:tmp/tts-2025-03-01@db35e833fbc245d48ff9f8b493c81ed8.wav，重试0次
+2025-03-01 11:27:01,992 - core.handle.audioHandle - INFO - 发送第一段语音: 你好呀
+2025-03-01 11:27:02,978 - core.providers.tts.base - INFO - 语音生成成功: 有什么我能帮忙的吗？愿你新的一年，财富多多，好运连连！:tmp/tts-2025-03-01@6682489b28ca4c548a9e7ae9ae1203cb.wav，重试0次
+2025-03-01 11:27:11,363 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-01 11:27:11,834 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-01 11:27:11,836 - core.utils.asr - INFO - 音频文件保存耗时: 0.002s | 路径: tmp/asr_126a5f92-af9a-460d-bf51-eac956f5a161_8fcb96fa-ee14-43ad-8d9c-b189fe9c06ef.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.003', 'extract_feat': '0.002', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.146'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.27it/s]rtf_avg: 0.146: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.22it/s]                                                                                          rtf_avg: 0.146: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.12it/s]
+2025-03-01 11:27:11,905 - core.utils.asr - INFO - 语音识别耗时: 0.070s | 结果: .
+2025-03-01 11:27:11,906 - core.handle.audioHandle - INFO - 识别文本: .
+2025-03-01 11:27:14,975 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-01 11:27:17,235 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-01 11:27:17,293 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_126a5f92-af9a-460d-bf51-eac956f5a161_a622ff94-feff-4e5d-8796-93fa6b1b77a6.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.008', 'extract_feat': '0.003', 'forward': '0.065', 'batch_size': '1', 'rtf': '0.029'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.34it/s]rtf_avg: 0.029: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.30it/s]                                                                                          rtf_avg: 0.029: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.22it/s]
+2025-03-01 11:27:17,363 - core.utils.asr - INFO - 语音识别耗时: 0.070s | 结果: 谢谢你退出。
+2025-03-01 11:27:17,363 - core.handle.audioHandle - INFO - 识别文本: 谢谢你退出。
+2025-03-01 11:27:17,364 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-01 11:27:17,364 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-01 11:27:17,651 - core.connection - INFO - 大模型说出第一句话: 哈哈
+1
+1
+2025-03-01 11:27:18,224 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-03-01@8b44c58721b045ceae45a72199758a4d.wav，重试0次
+2025-03-01 11:27:18,241 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+2025-03-01 11:27:19,254 - core.providers.tts.base - INFO - 语音生成成功: 不用谢！随时找我聊天哦，祝你财运亨通，事事顺心！:tmp/tts-2025-03-01@3f413716ea9447b8841890d7aea0bab9.wav，重试0次
+2025-03-01 11:27:27,756 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-01 11:27:29,002 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-01 11:27:29,032 - core.utils.asr - INFO - 音频文件保存耗时: 0.004s | 路径: tmp/asr_126a5f92-af9a-460d-bf51-eac956f5a161_beac23f2-59d9-415e-80c7-d748f96666ab.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.005', 'extract_feat': '0.002', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.051'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.45it/s]rtf_avg: 0.051: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.41it/s]                                                                                          rtf_avg: 0.051: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.32it/s]
+2025-03-01 11:27:29,101 - core.utils.asr - INFO - 语音识别耗时: 0.068s | 结果: 退出。
+2025-03-01 11:27:29,101 - core.handle.audioHandle - INFO - 识别文本: 退出。
+2025-03-01 11:27:29,101 - core.handle.audioHandle - INFO - 识别到明确的退出命令
+2025-03-01 11:27:29,141 - core.connection - INFO - 连接资源已释放
+2025-03-01 11:27:29,141 - core.connection - INFO - 客户端断开连接
+2025-03-01 11:27:29,141 - core.connection - INFO - 连接资源已释放
+2025-03-03 14:54:53,555 - websockets.server - INFO - connection open
+2025-03-03 14:54:53,557 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'Lc9GKQS0eNhop/8/K/H82Q==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 14:54:53,557 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 14:54:53,557 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '5c4c632a-c4e1-41cb-b9d6-4416c5289410'}
+2025-03-03 14:54:53,696 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 14:54:53,797 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 14:54:53,797 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 14:54:53,798 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 14:54:54,071 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 14:54:54,072 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_5c4c632a-c4e1-41cb-b9d6-4416c5289410_298e7823-2e28-41cd-ae85-8867b6da8826.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.002', 'extract_feat': '0.002', 'forward': '0.082', 'batch_size': '1', 'rtf': '0.343'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.14it/s]rtf_avg: 0.343: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.11it/s]                                                                                          rtf_avg: 0.343: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.06it/s]
+2025-03-03 14:54:54,164 - core.utils.asr - INFO - 语音识别耗时: 0.092s | 结果: 。
+2025-03-03 14:54:54,164 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-03-03 14:54:57,041 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 14:54:59,383 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 14:54:59,390 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_5c4c632a-c4e1-41cb-b9d6-4416c5289410_745a9dec-f3b6-4441-9648-f66fba184976.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.005', 'extract_feat': '0.003', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.030'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.32it/s]rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.27it/s]                                                                                          rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.19it/s]
+2025-03-03 14:54:59,458 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 그.
+2025-03-03 14:54:59,458 - core.handle.audioHandle - INFO - 识别文本: 그.
+2025-03-03 14:54:59,459 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 14:54:59,459 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 14:55:00,171 - core.connection - INFO - 大模型说出第一句话: 这是哪国语言呀？
+1
+1
+2025-03-03 14:55:00,873 - core.providers.tts.base - INFO - 语音生成成功: 这是哪国语言呀？:tmp/tts-2025-03-03@0f699607b23842d592abf0659159de1f.wav，重试0次
+2025-03-03 14:55:00,900 - core.handle.audioHandle - INFO - 发送第一段语音: 这是哪国语言呀？
+2025-03-03 14:55:01,920 - core.providers.tts.base - INFO - 语音生成成功: 我没太懂呢。有什么需要我帮忙的地方尽管说，祝你吉祥如意！:tmp/tts-2025-03-03@a56f184ccfc745d781ebfe30b74c6b87.wav，重试0次
+2025-03-03 14:55:12,532 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 14:55:15,097 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 14:55:15,135 - core.utils.asr - INFO - 音频文件保存耗时: 0.009s | 路径: tmp/asr_5c4c632a-c4e1-41cb-b9d6-4416c5289410_76bb42ab-20ef-408e-97cf-679466f2f64c.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.007', 'extract_feat': '0.003', 'forward': '0.066', 'batch_size': '1', 'rtf': '0.024'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.21it/s]rtf_avg: 0.024: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.17it/s]                                                                                          rtf_avg: 0.024: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.10it/s]
+2025-03-03 14:55:15,207 - core.utils.asr - INFO - 语音识别耗时: 0.071s | 结果: 그.
+2025-03-03 14:55:15,207 - core.handle.audioHandle - INFO - 识别文本: 그.
+2025-03-03 14:55:15,207 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 14:55:15,207 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 14:55:15,461 - core.connection - INFO - 大模型说出第一句话: 哎呀
+1
+1
+2025-03-03 14:55:16,051 - core.providers.tts.base - INFO - 语音生成成功: 哎呀:tmp/tts-2025-03-03@2a1939ee24614da3bc346c3ab3c43e25.wav，重试0次
+2025-03-03 14:55:16,066 - core.handle.audioHandle - INFO - 发送第一段语音: 哎呀
+2025-03-03 14:55:17,180 - core.providers.tts.base - INFO - 语音生成成功: 我还是没搞明白呢。要不咱们换个话题聊聊？愿你幸福安康，财源广进！:tmp/tts-2025-03-03@7120f6bf8b414fa7a2747db8f87ddaf1.wav，重试0次
+2025-03-03 14:55:32,153 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 14:55:34,996 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 14:55:35,136 - core.utils.asr - INFO - 音频文件保存耗时: 0.009s | 路径: tmp/asr_5c4c632a-c4e1-41cb-b9d6-4416c5289410_069fd0e6-886e-44b3-be28-bedd7f80264f.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.007', 'extract_feat': '0.003', 'forward': '0.083', 'batch_size': '1', 'rtf': '0.031'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.10it/s]rtf_avg: 0.031: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.08it/s]                                                                                          rtf_avg: 0.031: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.03it/s]
+2025-03-03 14:55:35,225 - core.utils.asr - INFO - 语音识别耗时: 0.088s | 结果: 그.
+2025-03-03 14:55:35,225 - core.handle.audioHandle - INFO - 识别文本: 그.
+2025-03-03 14:55:35,225 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 14:55:35,225 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 14:55:35,539 - core.connection - INFO - 大模型说出第一句话: 嘿
+1
+2025-03-03 14:55:36,138 - core.providers.tts.base - INFO - 语音生成成功: 嘿:tmp/tts-2025-03-03@cfd64eb53746493997497cf902c5d775.wav，重试0次
+2025-03-03 14:55:36,156 - core.handle.audioHandle - INFO - 发送第一段语音: 嘿
+1
+2025-03-03 14:55:37,677 - core.providers.tts.base - INFO - 语音生成成功: 这可难倒我啦！你能用中文或英文和我交流吗？祝你好运连连，财运滚滚！:tmp/tts-2025-03-03@6939b3a01b344f0b8b560d18e784007e.wav，重试0次
+2025-03-03 15:01:23,862 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:01:23,863 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:01:30,363 - websockets.server - INFO - connection open
+2025-03-03 15:01:30,363 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'Lc9GKQS0eNhop/8/K/H82Q==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:01:30,363 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:01:30,364 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '84242c12-d014-4f88-9247-03e72c49f2a8'}
+2025-03-03 15:01:30,609 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:01:30,651 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:01:30,652 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:01:30,652 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:01:31,129 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:01:31,130 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_84242c12-d014-4f88-9247-03e72c49f2a8_de10b94e-1e2e-4cc7-8e3a-a4ae71b845e9.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.002', 'extract_feat': '0.001', 'forward': '0.077', 'batch_size': '1', 'rtf': '0.429'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.93it/s]rtf_avg: 0.429: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.90it/s]                                                                                          rtf_avg: 0.429: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.85it/s]
+2025-03-03 15:01:31,215 - core.utils.asr - INFO - 语音识别耗时: 0.085s | 结果: 。
+2025-03-03 15:01:31,216 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-03-03 15:01:35,060 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:01:36,952 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:01:36,959 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_84242c12-d014-4f88-9247-03e72c49f2a8_6130cc42-2566-49fc-9272-36a2d689bbde.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.007', 'extract_feat': '0.002', 'forward': '0.065', 'batch_size': '1', 'rtf': '0.036'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.37it/s]rtf_avg: 0.036: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.33it/s]                                                                                          rtf_avg: 0.036: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.24it/s]
+2025-03-03 15:01:37,033 - core.utils.asr - INFO - 语音识别耗时: 0.073s | 结果: 你好啊。
+2025-03-03 15:01:37,033 - core.handle.audioHandle - INFO - 识别文本: 你好啊。
+2025-03-03 15:01:37,034 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:01:37,034 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:01:37,321 - core.connection - INFO - 大模型说出第一句话: 你好呀
+1
+1
+2025-03-03 15:01:37,974 - core.providers.tts.base - INFO - 语音生成成功: 你好呀:tmp/tts-2025-03-03@1a331f8ff8694722bf704df6036760a4.wav，重试0次
+2025-03-03 15:01:37,994 - core.handle.audioHandle - INFO - 发送第一段语音: 你好呀
+2025-03-03 15:01:39,041 - core.providers.tts.base - INFO - 语音生成成功: 很高兴和你聊天，有啥想聊的尽管说，愿你富贵吉祥，一帆风顺！:tmp/tts-2025-03-03@7c23398337254596ae0228d44242192d.wav，重试0次
+2025-03-03 15:01:51,739 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C02200004003EDD45F087"}
+abort detected
+2025-03-03 15:01:51,739 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:01:51,740 - core.handle.abortHandle - INFO - nfc_info: 040C02200004003EDD45F087
+2025-03-03 15:01:51,740 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:01:51,741 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:01:51,741 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:01:52,091 - core.connection - INFO - 大模型说出第一句话: 汗滴禾下土呀
+1
+2025-03-03 15:01:52,316 - websockets.server - INFO - connection open
+2025-03-03 15:01:52,316 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '1c546e5e-8a70-46d2-a758-8c02e84aee4b', 'connection': 'Upgrade', 'device-id': 'e4:b0:63:b9:ff:98', 'protocol-version': '1', 'sec-websocket-key': 'Lc9GKQS0eNhop/8/K/H82Q==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:01:52,317 - root - INFO - bUsePrivateConfig: False, device_id: e4:b0:63:b9:ff:98
+2025-03-03 15:01:52,317 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': 'e71508ea-3f82-4884-bbd5-300ec32627fd'}
+2025-03-03 15:01:52,482 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:01:52,507 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:01:52,507 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:01:52,507 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":90}}]}
+1
+2025-03-03 15:01:52,796 - core.providers.tts.base - INFO - 语音生成成功: 汗滴禾下土呀:tmp/tts-2025-03-03@eb46042001af42dba9aa27677903841c.wav，重试0次
+2025-03-03 15:01:52,835 - core.handle.audioHandle - INFO - 发送第一段语音: 汗滴禾下土呀
+2025-03-03 15:01:53,568 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:01:53,592 - core.utils.asr - INFO - 音频文件保存耗时: 0.004s | 路径: tmp/asr_e71508ea-3f82-4884-bbd5-300ec32627fd_9c2a046e-3050-4999-9fe4-3ebdcf78428c.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.003', 'extract_feat': '0.002', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.053'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.39it/s]rtf_avg: 0.053: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.35it/s]                                                                                          rtf_avg: 0.053: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.27it/s]
+2025-03-03 15:01:53,661 - core.utils.asr - INFO - 语音识别耗时: 0.069s | 结果: 你好你好。
+2025-03-03 15:01:53,661 - core.handle.audioHandle - INFO - 识别文本: 你好你好。
+2025-03-03 15:01:53,661 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:01:53,662 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:01:53,941 - core.providers.tts.base - INFO - 语音生成成功: 这首诗我也知道呢，要不要我再送你一句吉利话？祝你日进斗金，万事胜意！:tmp/tts-2025-03-03@73f7d252e32447dabaef0cf753d881a6.wav，重试0次
+2025-03-03 15:01:53,979 - core.connection - INFO - 大模型说出第一句话: 你好呀你好呀
+1
+1
+2025-03-03 15:01:54,645 - core.providers.tts.base - INFO - 语音生成成功: 你好呀你好呀:tmp/tts-2025-03-03@819aa8f427d146468198b8a5ce47ef4d.wav，重试0次
+2025-03-03 15:01:54,678 - core.handle.audioHandle - INFO - 发送第一段语音: 你好呀你好呀
+2025-03-03 15:01:55,642 - core.providers.tts.base - INFO - 语音生成成功: 今天过得怎么样？希望你每天都能笑口常开，财源滚滚来！:tmp/tts-2025-03-03@13f9d2b5b8fe48d6b305502ca5905bdd.wav，重试0次
+2025-03-03 15:02:00,083 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:02:00,084 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:02:00,084 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:02:00,084 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:02:00,085 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:02:00,086 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+/mnt/anaconda3/envs/speech_server/lib/python3.10/asyncio/events.py:80: RuntimeWarning: coroutine 'send_tts_message' was never awaited
+  self._context.run(self._callback, *self._args)
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+2025-03-03 15:02:00,416 - core.connection - INFO - 大模型说出第一句话: 哎呀
+1
+2025-03-03 15:02:01,002 - core.providers.tts.base - INFO - 语音生成成功: 哎呀:tmp/tts-2025-03-03@17b315c239284050b71bbcaa55e0b421.wav，重试0次
+2025-03-03 15:02:01,022 - core.handle.audioHandle - INFO - 发送第一段语音: 哎呀
+1
+2025-03-03 15:02:02,294 - core.providers.tts.base - INFO - 语音生成成功: 又回到这首诗啦！那我接一句“谁知盘中餐，粒粒皆辛苦”吧。愿你生活富足，幸福美满！:tmp/tts-2025-03-03@526a6076dce64a8fb070e49f0137cc6e.wav，重试0次
+2025-03-03 15:02:06,956 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:02:06,956 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:02:06,957 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:02:06,957 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:02:06,957 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:02:06,958 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:02:07,293 - core.connection - INFO - 大模型说出第一句话: 哈哈
+1
+2025-03-03 15:02:07,897 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-03-03@b18220e4ce4c49b4bb55a61d526dba1e.wav，重试0次
+2025-03-03 15:02:07,913 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+1
+2025-03-03 15:02:09,536 - core.providers.tts.base - INFO - 语音生成成功: 看来你很喜欢这首诗呢！那我就再送你个祝福，祝你在 2025 年里，收获满满，财运亨通！:tmp/tts-2025-03-03@e7a14a568c1146139580b8b6a46ae43a.wav，重试0次
+2025-03-03 15:03:39,702 - websockets.server - INFO - connection rejected (426 Upgrade Required)
+2025-03-03 15:03:39,775 - websockets.server - ERROR - opening handshake failed
+Traceback (most recent call last):
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 354, in conn_handler
+    await connection.handshake(
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 205, in handshake
+    raise self.protocol.handshake_exc
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 138, in accept
+    ) = self.process_request(request)
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 239, in process_request
+    raise InvalidUpgrade(
+websockets.exceptions.InvalidUpgrade: invalid Connection header: keep-alive
+2025-03-03 15:05:53,530 - websockets.server - INFO - connection rejected (426 Upgrade Required)
+2025-03-03 15:05:53,546 - websockets.server - ERROR - opening handshake failed
+Traceback (most recent call last):
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 354, in conn_handler
+    await connection.handshake(
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 205, in handshake
+    raise self.protocol.handshake_exc
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 138, in accept
+    ) = self.process_request(request)
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 239, in process_request
+    raise InvalidUpgrade(
+websockets.exceptions.InvalidUpgrade: invalid Connection header: keep-alive
+2025-03-03 15:09:32,672 - websockets.server - INFO - connection rejected (426 Upgrade Required)
+2025-03-03 15:09:32,693 - websockets.server - ERROR - opening handshake failed
+Traceback (most recent call last):
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 354, in conn_handler
+    await connection.handshake(
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 205, in handshake
+    raise self.protocol.handshake_exc
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 138, in accept
+    ) = self.process_request(request)
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 239, in process_request
+    raise InvalidUpgrade(
+websockets.exceptions.InvalidUpgrade: invalid Connection header: keep-alive
+2025-03-03 15:11:43,979 - websockets.server - INFO - connection rejected (426 Upgrade Required)
+2025-03-03 15:11:43,998 - websockets.server - ERROR - opening handshake failed
+Traceback (most recent call last):
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 354, in conn_handler
+    await connection.handshake(
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 205, in handshake
+    raise self.protocol.handshake_exc
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 138, in accept
+    ) = self.process_request(request)
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 239, in process_request
+    raise InvalidUpgrade(
+websockets.exceptions.InvalidUpgrade: invalid Connection header: keep-alive
+2025-03-03 15:14:24,920 - websockets.server - INFO - connection rejected (426 Upgrade Required)
+2025-03-03 15:14:24,932 - websockets.server - ERROR - opening handshake failed
+Traceback (most recent call last):
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 354, in conn_handler
+    await connection.handshake(
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 205, in handshake
+    raise self.protocol.handshake_exc
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 138, in accept
+    ) = self.process_request(request)
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 239, in process_request
+    raise InvalidUpgrade(
+websockets.exceptions.InvalidUpgrade: invalid Connection header: keep-alive
+2025-03-03 15:23:41,272 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:23:41,272 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:26:46,449 - websockets.server - INFO - connection open
+2025-03-03 15:26:46,450 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'Lc9GKQS0eNhop/8/K/H82Q==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:26:46,451 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:26:46,451 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '7d8de325-26d8-4808-a115-009b8996ef72'}
+2025-03-03 15:26:46,490 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:26:46,675 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:26:46,675 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:26:46,759 - websockets.server - INFO - connection open
+2025-03-03 15:26:46,759 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '1c546e5e-8a70-46d2-a758-8c02e84aee4b', 'connection': 'Upgrade', 'device-id': 'e4:b0:63:b9:ff:98', 'protocol-version': '1', 'sec-websocket-key': 'D4TNSdaDQhfnozmTc8bm8Q==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:26:46,759 - root - INFO - bUsePrivateConfig: False, device_id: e4:b0:63:b9:ff:98
+2025-03-03 15:26:46,759 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '37ab17a1-c4a9-40af-81d0-d079653613c0'}
+2025-03-03 15:26:46,835 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:26:46,841 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:26:46,978 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:26:47,086 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:26:47,086 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:26:47,139 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"detect","text":"你好小智"}
+2025-03-03 15:26:47,139 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:26:47,139 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":90}}]}
+2025-03-03 15:26:47,139 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:26:47,457 - core.connection - INFO - 大模型说出第一句话: 你好啊
+1
+2025-03-03 15:26:48,051 - core.providers.tts.base - INFO - 语音生成成功: 你好啊:tmp/tts-2025-03-03@34ea0ac8e06d49e9a597a198b830ebff.wav，重试0次
+1
+2025-03-03 15:26:48,071 - core.handle.audioHandle - INFO - 发送第一段语音: 你好啊
+2025-03-03 15:26:49,198 - core.providers.tts.base - INFO - 语音生成成功: 很高兴与你聊天，愿你新的一年里，好运连连，财富多多，幸福满满！:tmp/tts-2025-03-03@29e0fea5e629488f8cbe8c4f442f21c5.wav，重试0次
+2025-03-03 15:26:51,291 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:26:51,307 - core.utils.asr - INFO - 音频文件保存耗时: 0.015s | 路径: tmp/asr_7d8de325-26d8-4808-a115-009b8996ef72_04456a6b-5b42-4e18-aaef-3407b4105694.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.012', 'extract_feat': '0.007', 'forward': '0.092', 'batch_size': '1', 'rtf': '0.020'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.83it/s]rtf_avg: 0.020: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.81it/s]                                                                                          rtf_avg: 0.020: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.70it/s]
+2025-03-03 15:26:51,405 - core.utils.asr - INFO - 语音识别耗时: 0.098s | 结果: 你好你好。😔
+2025-03-03 15:26:51,405 - core.handle.audioHandle - INFO - 识别文本: 你好你好。😔
+2025-03-03 15:26:51,406 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:26:51,406 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:26:51,700 - core.connection - INFO - 大模型说出第一句话: 你好呀
+1
+2025-03-03 15:26:52,288 - core.providers.tts.base - INFO - 语音生成成功: 你好呀:tmp/tts-2025-03-03@e69f1beb8a874cf48712060c4dff6e1d.wav，重试0次
+1
+2025-03-03 15:26:52,309 - core.handle.audioHandle - INFO - 发送第一段语音: 你好呀
+2025-03-03 15:26:53,435 - core.providers.tts.base - INFO - 语音生成成功: 怎么看起来不太开心呢？有啥烦心事，跟我说说，愿你能笑口常开，好运常伴！:tmp/tts-2025-03-03@f215bd4a174a47c695aa92cc5b5ac865.wav，重试0次
+2025-03-03 15:26:56,082 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:26:56,255 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_716a6ffb-346f-46e1-a338-a0874d07d0e2.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.056', 'batch_size': '1', 'rtf': '0.936'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.77it/s]rtf_avg: 0.936: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.71it/s]                                                                                          rtf_avg: 0.936: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.60it/s]
+2025-03-03 15:26:56,318 - core.utils.asr - INFO - 语音识别耗时: 0.062s | 结果: .
+2025-03-03 15:26:56,318 - core.handle.audioHandle - INFO - 识别文本: .
+2025-03-03 15:26:59,803 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_71690996-7f35-46b2-87a5-2f0f62fca393.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.002', 'forward': '0.062', 'batch_size': '1', 'rtf': '0.038'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.21it/s]rtf_avg: 0.038: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.16it/s]                                                                                          rtf_avg: 0.038: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.07it/s]
+2025-03-03 15:26:59,870 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 给我讲个笑话。
+2025-03-03 15:26:59,870 - core.handle.audioHandle - INFO - 识别文本: 给我讲个笑话。
+2025-03-03 15:26:59,871 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:26:59,871 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:27:00,232 - core.connection - INFO - 大模型说出第一句话: 好呀
+1
+2025-03-03 15:27:00,807 - core.providers.tts.base - INFO - 语音生成成功: 好呀:tmp/tts-2025-03-03@ed6172b489c24252b53ecdb949bd731c.wav，重试0次
+2025-03-03 15:27:00,821 - core.handle.audioHandle - INFO - 发送第一段语音: 好呀
+1
+2025-03-03 15:27:02,563 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:27:04,558 - core.providers.tts.base - INFO - 语音生成成功: 听着哦！小蚂蚁迷路找不到蚁窝，可着急了，恰好看到它的朋友经过，于是冲过去大喊一声：“哥们儿！你…你都如何回蚁窝（回忆我）？”那朋友一愣，然后反问道：“带…带…带着笑或是很沉默？”哈哈，好笑不？愿你每天都开开心心的！:tmp/tts-2025-03-03@df970378a0db404a9300bb78bc33365b.wav，重试0次
+2025-03-03 15:27:05,696 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:27:05,705 - core.utils.asr - INFO - 音频文件保存耗时: 0.009s | 路径: tmp/asr_7d8de325-26d8-4808-a115-009b8996ef72_e42327d8-2c1a-4696-9037-ac6005eb8268.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.009', 'extract_feat': '0.003', 'forward': '0.068', 'batch_size': '1', 'rtf': '0.023'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.72it/s]rtf_avg: 0.023: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.68it/s]                                                                                          rtf_avg: 0.023: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.75it/s]
+2025-03-03 15:27:05,783 - core.utils.asr - INFO - 语音识别耗时: 0.077s | 结果: 你好你好。
+2025-03-03 15:27:05,783 - core.handle.audioHandle - INFO - 识别文本: 你好你好。
+2025-03-03 15:27:05,783 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:27:05,784 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:27:06,086 - core.connection - INFO - 大模型说出第一句话: 你好呀
+1
+1
+2025-03-03 15:27:06,676 - core.providers.tts.base - INFO - 语音生成成功: 你好呀:tmp/tts-2025-03-03@5afeb92f4e75499d8bde3087c87bdd5b.wav，重试0次
+2025-03-03 15:27:06,696 - core.handle.audioHandle - INFO - 发送第一段语音: 你好呀
+2025-03-03 15:27:07,747 - core.providers.tts.base - INFO - 语音生成成功: 这么热情，是不是有什么好事要和我分享呀？愿你好事连连，财运亨通！:tmp/tts-2025-03-03@70807102211549dc81440ee7eb4afac2.wav，重试0次
+2025-03-03 15:27:16,112 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C02200004003EDD45F087"}
+abort detected
+2025-03-03 15:27:16,112 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:27:16,112 - core.handle.abortHandle - INFO - nfc_info: 040C02200004003EDD45F087
+2025-03-03 15:27:16,112 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:27:16,113 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:27:16,113 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:27:16,499 - core.connection - INFO - 大模型说出第一句话: 嘿
+1
+2025-03-03 15:27:17,075 - core.providers.tts.base - INFO - 语音生成成功: 嘿:tmp/tts-2025-03-03@2d20deca231c469f9ce8cca9484b3461.wav，重试0次
+2025-03-03 15:27:17,092 - core.handle.audioHandle - INFO - 发送第一段语音: 嘿
+1
+2025-03-03 15:27:19,055 - core.providers.tts.base - INFO - 语音生成成功: 这诗还挺有节奏感的！那我也来一句：“汗滴禾下土，辛勤必有获！”祝你收获满满，财富多多！:tmp/tts-2025-03-03@c4cfa5b7ee5a4f66ac197f1bfce56623.wav，重试0次
+2025-03-03 15:27:23,276 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:27:23,385 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_2bab791b-90ca-469a-8eb0-84bfd0c2c020.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.074', 'batch_size': '1', 'rtf': '1.225'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.59it/s]rtf_avg: 1.225: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.56it/s]                                                                                          rtf_avg: 1.225: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.50it/s]
+2025-03-03 15:27:23,466 - core.utils.asr - INFO - 语音识别耗时: 0.080s | 结果: ？
+2025-03-03 15:27:23,466 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:27:29,435 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_55aee6e1-eb53-4f67-a214-0db78956afaa.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.006', 'extract_feat': '0.004', 'forward': '0.065', 'batch_size': '1', 'rtf': '0.027'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.40it/s]rtf_avg: 0.027: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.36it/s]                                                                                          rtf_avg: 0.027: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.28it/s]
+2025-03-03 15:27:29,505 - core.utils.asr - INFO - 语音识别耗时: 0.069s | 结果: 太冷了，小话。
+2025-03-03 15:27:29,505 - core.handle.audioHandle - INFO - 识别文本: 太冷了，小话。
+2025-03-03 15:27:29,505 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:27:29,505 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:27:29,555 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:27:29,556 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:27:29,556 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:27:29,556 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:27:29,556 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:27:29,557 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:27:29,938 - core.connection - INFO - 大模型说出第一句话: 嘿嘿
+1
+2025-03-03 15:27:30,053 - core.connection - INFO - 大模型说出第一句话: 那我给你来个“温暖版”的祝福
+1
+1
+2025-03-03 15:27:30,507 - core.providers.tts.base - INFO - 语音生成成功: 嘿嘿:tmp/tts-2025-03-03@827c7563fe3146eb83c15a783a2f6eb5.wav，重试0次
+2025-03-03 15:27:30,524 - core.handle.audioHandle - INFO - 发送第一段语音: 嘿嘿
+1
+2025-03-03 15:27:32,268 - core.providers.tts.base - INFO - 语音生成成功: 那我给你来个“温暖版”的祝福:tmp/tts-2025-03-03@45c27eb7a01e4713b0bd317d1eaf9c15.wav，重试0次
+2025-03-03 15:27:32,270 - core.providers.tts.base - INFO - 语音生成成功: 那我给你加把“火”！愿你在 2025 年，红红火火，财运旺旺！:tmp/tts-2025-03-03@22dcf428ec5a4299b27bca814ffcfbc6.wav，重试0次
+2025-03-03 15:27:32,316 - core.handle.audioHandle - INFO - 发送第一段语音: 那我给你来个“温暖版”的祝福
+2025-03-03 15:27:33,375 - core.providers.tts.base - INFO - 语音生成成功: 愿你在寒冷的日子里也能感受到温暖，财运如同冬日暖阳，照耀着你！:tmp/tts-2025-03-03@f72c74ae7ac24bcfaf30901a29c6802b.wav，重试0次
+2025-03-03 15:27:41,011 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:27:41,108 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_7a30d252-6174-4606-ab49-6d38cb760259.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.054', 'batch_size': '1', 'rtf': '0.896'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.58it/s]rtf_avg: 0.896: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.53it/s]                                                                                          rtf_avg: 0.896: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.43it/s]
+2025-03-03 15:27:41,169 - core.utils.asr - INFO - 语音识别耗时: 0.061s | 结果: ？
+2025-03-03 15:27:41,169 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:27:41,860 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:27:41,860 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:27:41,860 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:27:41,860 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:27:41,861 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:27:41,861 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:27:42,734 - core.connection - INFO - 大模型说出第一句话: 看来你真的很喜欢这首诗呀😉 那我再送你一句吉利话：
+1
+2025-03-03 15:27:42,848 - core.utils.asr - INFO - 音频文件保存耗时: 0.003s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_898e9bd8-ca98-499f-96c9-b2ea95be6086.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.005', 'extract_feat': '0.002', 'forward': '0.060', 'batch_size': '1', 'rtf': '0.053'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.50it/s]rtf_avg: 0.053: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.46it/s]                                                                                          rtf_avg: 0.053: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.34it/s]
+2025-03-03 15:27:42,915 - core.utils.asr - INFO - 语音识别耗时: 0.066s | 结果: Thank.
+2025-03-03 15:27:42,915 - core.handle.audioHandle - INFO - 识别文本: Thank.
+2025-03-03 15:27:42,915 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:27:42,916 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+1
+2025-03-03 15:27:43,329 - core.connection - INFO - 大模型说出第一句话: You're welcome
+1
+2025-03-03 15:27:43,650 - core.providers.tts.base - INFO - 语音生成成功: 看来你真的很喜欢这首诗呀😉 那我再送你一句吉利话：:tmp/tts-2025-03-03@423661b54571478087032850fe9c5558.wav，重试0次
+2025-03-03 15:27:43,720 - core.handle.audioHandle - INFO - 发送第一段语音: 看来你真的很喜欢这首诗呀😉 那我再送你一句吉利话：
+1
+2025-03-03 15:27:45,258 - core.providers.tts.base - INFO - 语音生成成功: You're welcome:tmp/tts-2025-03-03@0c24461dbfa644dc890b7711983d6c52.wav，重试0次
+2025-03-03 15:27:45,262 - core.providers.tts.base - INFO - 语音生成成功: “种地得金，勤劳致富！”希望你生活美满，财富满满哦💰:tmp/tts-2025-03-03@c73d141d855e4ee086431c92a0daa89c.wav，重试0次
+2025-03-03 15:27:45,286 - core.handle.audioHandle - INFO - 发送第一段语音: You're welcome
+2025-03-03 15:27:46,409 - core.providers.tts.base - INFO - 语音生成成功:  It's my pleasure to chat with you. Wishing you wealth and good luck in 2025!:tmp/tts-2025-03-03@adb7cca4edb84fa68fb0581c7f00b003.wav，重试0次
+2025-03-03 15:27:53,583 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:27:53,704 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_7f1cd3f7-1f93-49aa-b84d-cf60605a4695.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.056', 'batch_size': '1', 'rtf': '0.940'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.71it/s]rtf_avg: 0.940: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.65it/s]                                                                                          rtf_avg: 0.940: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.55it/s]
+2025-03-03 15:27:53,767 - core.utils.asr - INFO - 语音识别耗时: 0.063s | 结果: .
+2025-03-03 15:27:53,767 - core.handle.audioHandle - INFO - 识别文本: .
+2025-03-03 15:27:59,081 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_2226a11b-3832-49f5-99e2-f0d4fa8ae8db.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.003', 'forward': '0.062', 'batch_size': '1', 'rtf': '0.033'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.03it/s]rtf_avg: 0.033: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.98it/s]                                                                                          rtf_avg: 0.033: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.90it/s]
+2025-03-03 15:27:59,149 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 吧好吧，谢谢你。😊
+2025-03-03 15:27:59,149 - core.handle.audioHandle - INFO - 识别文本: 吧好吧，谢谢你。😊
+2025-03-03 15:27:59,150 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:27:59,150 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:27:59,532 - core.connection - INFO - 大模型说出第一句话: 嘿嘿
+1
+2025-03-03 15:28:00,107 - core.providers.tts.base - INFO - 语音生成成功: 嘿嘿:tmp/tts-2025-03-03@a92b388d6719419094093b4b87cf8cfa.wav，重试0次
+2025-03-03 15:28:00,124 - core.handle.audioHandle - INFO - 发送第一段语音: 嘿嘿
+1
+2025-03-03 15:28:01,304 - core.providers.tts.base - INFO - 语音生成成功: 不用客气哟！能帮到你我也很开心哒😁 愿你天天都有好心情，财源广进笑不停😀:tmp/tts-2025-03-03@641875fce03848e3b815eaf9dd273c93.wav，重试0次
+2025-03-03 15:28:08,993 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:28:09,131 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_11203284-30f5-4367-9f2a-bcc0aa57bf49.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.053', 'batch_size': '1', 'rtf': '0.891'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.69it/s]rtf_avg: 0.891: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.64it/s]                                                                                          rtf_avg: 0.891: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.54it/s]
+2025-03-03 15:28:09,193 - core.utils.asr - INFO - 语音识别耗时: 0.061s | 结果: ？
+2025-03-03 15:28:09,193 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:28:12,225 - core.utils.asr - INFO - 音频文件保存耗时: 0.004s | 路径: tmp/asr_37ab17a1-c4a9-40af-81d0-d079653613c0_b74df1b1-3b4e-4cb8-b406-795093d70858.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.003', 'extract_feat': '0.002', 'forward': '0.060', 'batch_size': '1', 'rtf': '0.050'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.67it/s]rtf_avg: 0.050: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.63it/s]                                                                                          rtf_avg: 0.050: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.53it/s]
+2025-03-03 15:28:12,290 - core.utils.asr - INFO - 语音识别耗时: 0.065s | 结果: 拜拜e。
+2025-03-03 15:28:12,291 - core.handle.audioHandle - INFO - 识别文本: 拜拜e。
+2025-03-03 15:28:12,291 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:28:12,291 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:28:12,679 - core.connection - INFO - 大模型说出第一句话: 拜拜啦
+1
+1
+2025-03-03 15:28:13,270 - core.providers.tts.base - INFO - 语音生成成功: 拜拜啦:tmp/tts-2025-03-03@6fd3e1c72e1d4bffa2ab2189e03cbb30.wav，重试0次
+2025-03-03 15:28:13,288 - core.handle.audioHandle - INFO - 发送第一段语音: 拜拜啦
+2025-03-03 15:28:14,305 - core.providers.tts.base - INFO - 语音生成成功: 祝你一路顺风，财运亨通🎉 记得有空再来找我聊天哦😉:tmp/tts-2025-03-03@6792c1a2828f4d5bb5379bd72cb7a362.wav，重试0次
+2025-03-03 15:28:19,281 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:28:19,281 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:28:19,282 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:28:23,611 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C02200004003EDD45F087"}
+abort detected
+2025-03-03 15:28:23,612 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:28:23,612 - core.handle.abortHandle - INFO - nfc_info: 040C02200004003EDD45F087
+2025-03-03 15:28:23,612 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:28:23,613 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:28:23,613 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:28:24,099 - core.connection - INFO - 大模型说出第一句话: 哎呀
+1
+2025-03-03 15:28:24,688 - core.providers.tts.base - INFO - 语音生成成功: 哎呀:tmp/tts-2025-03-03@777ec7d147d64914b0e25280b3ee5e9e.wav，重试0次
+2025-03-03 15:28:24,707 - core.handle.audioHandle - INFO - 发送第一段语音: 哎呀
+1
+2025-03-03 15:28:26,094 - core.providers.tts.base - INFO - 语音生成成功: 又回到这首诗啦😄 那我再送你一句：“春种一粒粟，秋收万颗子。”愿你付出皆有回报，财富滚滚来哟💰:tmp/tts-2025-03-03@0b4a78ef9a794b449e651dd9951fd43f.wav，重试0次
+2025-03-03 15:28:55,772 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:28:55,772 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:28:55,773 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:28:55,773 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:28:55,773 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:28:55,773 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:28:56,204 - core.connection - INFO - 大模型说出第一句话: 哈哈
+1
+2025-03-03 15:28:56,796 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-03-03@e5d0f6a40a854a569d6486914f89a74a.wav，重试0次
+2025-03-03 15:28:56,813 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+1
+2025-03-03 15:28:58,197 - core.providers.tts.base - INFO - 语音生成成功: 这首诗真有魅力😆 那我换个祝福吧，愿你在 2025 年，如日中天，财源广进！:tmp/tts-2025-03-03@da15eea6e86c4b5593b6ebe89c3b72fc.wav，重试0次
+2025-03-03 15:29:25,144 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:29:25,144 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:29:25,199 - websockets.server - INFO - connection open
+2025-03-03 15:29:25,199 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'zQYBYxNvEIlElg5N78Jk8g==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:29:25,200 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:29:25,200 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': 'c2a42554-520c-499a-b94e-10459ace4f82'}
+2025-03-03 15:29:25,256 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:29:25,280 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:29:25,556 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"detect","text":"你好小智"}
+2025-03-03 15:29:25,556 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:29:25,557 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:29:25,586 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:29:26,295 - core.connection - INFO - 大模型说出第一句话: 哈喽呀😉 今天有没有遇到什么开心的事情呢？
+1
+1
+2025-03-03 15:29:27,236 - core.providers.tts.base - INFO - 语音生成成功: 哈喽呀😉 今天有没有遇到什么开心的事情呢？:tmp/tts-2025-03-03@bbfafd174a934beab5eaf25c09e33801.wav，重试0次
+2025-03-03 15:29:27,307 - core.handle.audioHandle - INFO - 发送第一段语音: 哈喽呀😉 今天有没有遇到什么开心的事情呢？
+2025-03-03 15:29:28,170 - core.providers.tts.base - INFO - 语音生成成功: 愿你每天都能笑口常开，好运自然来🧧:tmp/tts-2025-03-03@5bf0ece66a064cc69d42e5bfefa46bee.wav，重试0次
+2025-03-03 15:29:35,938 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:29:36,091 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_c2a42554-520c-499a-b94e-10459ace4f82_d8f7ca08-f4da-4dae-85e7-85fbb6772b6d.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.074', 'batch_size': '1', 'rtf': '1.232'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.51it/s]rtf_avg: 1.232: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.48it/s]                                                                                          rtf_avg: 1.232: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.41it/s]
+2025-03-03 15:29:36,173 - core.utils.asr - INFO - 语音识别耗时: 0.082s | 结果: 。
+2025-03-03 15:29:36,173 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-03-03 15:29:56,189 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:29:56,190 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:29:56,570 - core.connection - INFO - 大模型说出第一句话: 时光飞逝
+1
+1
+2025-03-03 15:29:57,217 - core.providers.tts.base - INFO - 语音生成成功: 时光飞逝:tmp/tts-2025-03-03@814454d70e69475884157081a23f2db0.wav，重试0次
+2025-03-03 15:29:57,243 - core.handle.audioHandle - INFO - 发送第一段语音: 时光飞逝
+2025-03-03 15:29:57,972 - core.providers.tts.base - INFO - 语音生成成功: 期待下次畅谈，拜拜拜！:tmp/tts-2025-03-03@4b00de796ee84fa2811d8feecd7d3758.wav，重试0次
+2025-03-03 15:30:01,008 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:30:01,008 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:30:01,009 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:30:17,717 - websockets.server - INFO - connection open
+2025-03-03 15:30:17,717 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'E2qfcDxuS9JObQ9Iy1aklA==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:30:17,717 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:30:17,718 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': 'caac9116-e197-4239-9b8d-deaa8114c8fd'}
+2025-03-03 15:30:17,868 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:30:17,981 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:30:18,060 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"detect","text":"你好小智"}
+2025-03-03 15:30:18,061 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:30:18,061 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:30:18,142 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:30:18,572 - core.connection - INFO - 大模型说出第一句话: 哈喽哈喽
+1
+1
+2025-03-03 15:30:19,219 - core.providers.tts.base - INFO - 语音生成成功: 哈喽哈喽:tmp/tts-2025-03-03@b9c6d4b4944c43508ac0ea9948fb071a.wav，重试0次
+2025-03-03 15:30:19,243 - core.handle.audioHandle - INFO - 发送第一段语音: 哈喽哈喽
+2025-03-03 15:30:20,188 - core.providers.tts.base - INFO - 语音生成成功: 很高兴又和你聊天啦！愿你好运常伴，财富满满哦💰！:tmp/tts-2025-03-03@bc935766514647d699a022e4b95fc996.wav，重试0次
+2025-03-03 15:30:25,183 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:30:25,284 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_caac9116-e197-4239-9b8d-deaa8114c8fd_dfc8ee0c-15dc-41a6-b983-f11191983369.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.002', 'forward': '0.077', 'batch_size': '1', 'rtf': '1.278'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.03it/s]rtf_avg: 1.278: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.00it/s]                                                                                          rtf_avg: 1.278: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.94it/s]
+2025-03-03 15:30:25,369 - core.utils.asr - INFO - 语音识别耗时: 0.085s | 结果: 。
+2025-03-03 15:30:25,369 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-03-03 15:30:45,382 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:30:45,383 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:30:45,924 - core.connection - INFO - 大模型说出第一句话: 那我就说：
+1
+1
+2025-03-03 15:30:46,569 - core.providers.tts.base - INFO - 语音生成成功: 那我就说：:tmp/tts-2025-03-03@b193dbb002a14745be58b38b2a1d0486.wav，重试0次
+2025-03-03 15:30:46,595 - core.handle.audioHandle - INFO - 发送第一段语音: 那我就说：
+2025-03-03 15:30:47,620 - core.providers.tts.base - INFO - 语音生成成功: “暂别片刻，期待再见！”或者“时光匆匆，拜拜拜啦！”希望你喜欢😉！:tmp/tts-2025-03-03@cb963c1ee33643abbcecdf8d3d66c4ce.wav，重试0次
+2025-03-03 15:30:53,455 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:30:53,456 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:30:53,456 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:31:04,906 - websockets.server - INFO - connection open
+2025-03-03 15:31:04,906 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'Dc09mqwfE3wTBIGWm56TjQ==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:31:04,907 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:31:04,907 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '19474ada-0a89-411a-b283-dcd221ab0be9'}
+2025-03-03 15:31:04,963 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:31:04,984 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:31:05,260 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"detect","text":"你好小智"}
+2025-03-03 15:31:05,260 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:31:05,261 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:31:05,298 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:31:06,142 - core.connection - INFO - 大模型说出第一句话: 你好啊
+1
+1
+2025-03-03 15:31:06,750 - core.providers.tts.base - INFO - 语音生成成功: 你好啊:tmp/tts-2025-03-03@028c1b974d054f829f0ffb7c847d1978.wav，重试0次
+2025-03-03 15:31:06,768 - core.handle.audioHandle - INFO - 发送第一段语音: 你好啊
+2025-03-03 15:31:07,808 - core.providers.tts.base - INFO - 语音生成成功: 今天有没有什么好玩的事情发生呀？愿你财运亨通，好运连连🎉！:tmp/tts-2025-03-03@81bb4b3da00d45bea6e395b8598f65ab.wav，重试0次
+2025-03-03 15:31:13,183 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:31:13,269 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_19474ada-0a89-411a-b283-dcd221ab0be9_79d0c76d-5fd9-4949-9559-900094bd08d9.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.002', 'forward': '0.081', 'batch_size': '1', 'rtf': '1.357'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.27it/s]rtf_avg: 1.357: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.24it/s]                                                                                          rtf_avg: 1.357: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.19it/s]
+2025-03-03 15:31:13,357 - core.utils.asr - INFO - 语音识别耗时: 0.088s | 结果: ？
+2025-03-03 15:31:13,357 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:31:33,371 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:31:33,372 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:31:33,929 - core.connection - INFO - 大模型说出第一句话: 哎呀
+1
+1
+2025-03-03 15:31:34,539 - core.providers.tts.base - INFO - 语音生成成功: 哎呀:tmp/tts-2025-03-03@ed4ee3f58fe64c8694b73895b10d9a9f.wav，重试0次
+2025-03-03 15:31:34,558 - core.handle.audioHandle - INFO - 发送第一段语音: 哎呀
+2025-03-03 15:31:35,640 - core.providers.tts.base - INFO - 语音生成成功: 时光如白驹过隙，再见啦！或者：匆匆时光过，拜拜拜喽！:tmp/tts-2025-03-03@f28043deb06a43dc924a93c77968aa5b.wav，重试0次
+2025-03-03 15:31:41,588 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:31:41,588 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:31:41,589 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:31:44,626 - websockets.server - INFO - connection open
+2025-03-03 15:31:44,626 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'qVJmWIr0htKh7rAA7j2fCQ==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:31:44,626 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:31:44,627 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '74e5f772-a623-4e4b-a005-e4a3c24995d0'}
+2025-03-03 15:31:44,718 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:31:44,757 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:31:44,757 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:31:44,757 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:31:48,384 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:31:48,395 - core.utils.asr - INFO - 音频文件保存耗时: 0.011s | 路径: tmp/asr_74e5f772-a623-4e4b-a005-e4a3c24995d0_1a2a71c6-b36d-4209-bdde-8ee911b84266.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.010', 'extract_feat': '0.006', 'forward': '0.095', 'batch_size': '1', 'rtf': '0.026'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.52it/s]rtf_avg: 0.026: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.50it/s]                                                                                          rtf_avg: 0.026: 100%|[34m██████████[0m| 1/1 [00:00<00:00,  9.57it/s]
+2025-03-03 15:31:48,503 - core.utils.asr - INFO - 语音识别耗时: 0.109s | 结果: 你能听见我说话吗？
+2025-03-03 15:31:48,504 - core.handle.audioHandle - INFO - 识别文本: 你能听见我说话吗？
+2025-03-03 15:31:48,504 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:31:48,505 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:31:49,059 - core.connection - INFO - 大模型说出第一句话: 当然能听见啦
+1
+1
+2025-03-03 15:31:49,711 - core.providers.tts.base - INFO - 语音生成成功: 当然能听见啦:tmp/tts-2025-03-03@c1790a6531f24a07be7667cea4f56868.wav，重试0次
+2025-03-03 15:31:49,735 - core.handle.audioHandle - INFO - 发送第一段语音: 当然能听见啦
+2025-03-03 15:31:50,637 - core.providers.tts.base - INFO - 语音生成成功: 有什么想说的尽管说，愿你幸福如意，财源广进💰！:tmp/tts-2025-03-03@2cbb541a5c794023bdd36bd00d983915.wav，重试0次
+2025-03-03 15:31:57,860 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:32:02,069 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:32:02,080 - core.utils.asr - INFO - 音频文件保存耗时: 0.011s | 路径: tmp/asr_74e5f772-a623-4e4b-a005-e4a3c24995d0_51501236-f34d-47c0-ae95-59118578865a.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.012', 'extract_feat': '0.004', 'forward': '0.069', 'batch_size': '1', 'rtf': '0.017'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.38it/s]rtf_avg: 0.017: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.35it/s]                                                                                          rtf_avg: 0.017: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.15it/s]
+2025-03-03 15:32:02,155 - core.utils.asr - INFO - 语音识别耗时: 0.075s | 结果: 那我说音量40。
+2025-03-03 15:32:02,155 - core.handle.audioHandle - INFO - 识别文本: 那我说音量40。
+2025-03-03 15:32:02,155 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:32:02,156 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:32:02,834 - core.connection - INFO - 大模型说出第一句话: 哈哈
+1
+1
+2025-03-03 15:32:03,411 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-03-03@471496e6a63e4bb5ae5c264ff43de97f.wav，重试0次
+2025-03-03 15:32:03,428 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+2025-03-03 15:32:04,704 - core.providers.tts.base - INFO - 语音生成成功: 我听到啦😀！不过音量 40 是什么意思呢？不管怎样，祝你万事顺遂，财运亨通🎊！:tmp/tts-2025-03-03@40a2e1a34ad54d4c90be2432bdb2a165.wav，重试0次
+2025-03-03 15:32:33,862 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:32:33,862 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:32:33,972 - websockets.server - INFO - connection open
+2025-03-03 15:32:33,972 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'lht3Za6sdphy2oB2jchy+Q==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:32:33,973 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:32:33,973 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': 'a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2'}
+2025-03-03 15:32:34,081 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:32:34,109 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:32:34,946 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"detect","text":"你好小智"}
+2025-03-03 15:32:34,946 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:32:34,946 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:32:34,949 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:32:35,680 - core.connection - INFO - 大模型说出第一句话: 你好哟
+1
+1
+2025-03-03 15:32:36,284 - core.providers.tts.base - INFO - 语音生成成功: 你好哟:tmp/tts-2025-03-03@c5985b6e940e45e3adf68280ee1e1a96.wav，重试0次
+2025-03-03 15:32:36,302 - core.handle.audioHandle - INFO - 发送第一段语音: 你好哟
+2025-03-03 15:32:37,220 - core.providers.tts.base - INFO - 语音生成成功: 看到你这么热情我可开心啦，愿你生活愉快，财富多多😉！:tmp/tts-2025-03-03@c030d478fe404451b69984c25e72aa5d.wav，重试0次
+2025-03-03 15:32:42,152 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:32:42,278 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_b86c3ab5-7da4-4f52-9dd2-3ea14986abb8.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.076', 'batch_size': '1', 'rtf': '1.262'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.20it/s]rtf_avg: 1.262: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.17it/s]                                                                                          rtf_avg: 1.262: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.12it/s]
+2025-03-03 15:32:42,360 - core.utils.asr - INFO - 语音识别耗时: 0.082s | 结果: ？
+2025-03-03 15:32:42,360 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:32:49,766 - core.utils.asr - INFO - 音频文件保存耗时: 0.004s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_a129d0b9-ac2f-4a61-83ec-3cd84b8bfda3.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.003', 'forward': '0.062', 'batch_size': '1', 'rtf': '0.043'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.05it/s]rtf_avg: 0.043: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.01it/s]                                                                                          rtf_avg: 0.043: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.93it/s]
+2025-03-03 15:32:49,833 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 这么久，然后躺了一天钟。
+2025-03-03 15:32:49,833 - core.handle.audioHandle - INFO - 识别文本: 这么久，然后躺了一天钟。
+2025-03-03 15:32:49,834 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:32:49,834 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:32:50,503 - core.connection - INFO - 大模型说出第一句话: 躺了一天呀
+1
+1
+2025-03-03 15:32:51,128 - core.providers.tts.base - INFO - 语音生成成功: 躺了一天呀:tmp/tts-2025-03-03@ebb5e05b667645f18a36671f56c511cc.wav，重试0次
+2025-03-03 15:32:51,150 - core.handle.audioHandle - INFO - 发送第一段语音: 躺了一天呀
+2025-03-03 15:32:52,134 - core.providers.tts.base - INFO - 语音生成成功: 是不是休息得很不错呢😉？愿你每天都能精力充沛，财运旺盛💪！:tmp/tts-2025-03-03@764cdb208530491d967e12a09f3a2596.wav，重试0次
+2025-03-03 15:32:57,649 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:32:59,102 - core.utils.asr - INFO - 音频文件保存耗时: 0.004s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_1f68f301-72be-4750-9035-ae8ffe697bea.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.002', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.044'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.40it/s]rtf_avg: 0.044: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.36it/s]                                                                                          rtf_avg: 0.044: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.26it/s]
+2025-03-03 15:32:59,170 - core.utils.asr - INFO - 语音识别耗时: 0.068s | 结果: 没你没没有行不清。
+2025-03-03 15:32:59,170 - core.handle.audioHandle - INFO - 识别文本: 没你没没有行不清。
+2025-03-03 15:32:59,171 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:32:59,171 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:32:59,688 - core.connection - INFO - 大模型说出第一句话: 哎呀
+1
+2025-03-03 15:33:00,275 - core.providers.tts.base - INFO - 语音生成成功: 哎呀:tmp/tts-2025-03-03@4c74102f26ba40a59e332b0218a1a8e9.wav，重试0次
+2025-03-03 15:33:00,295 - core.handle.audioHandle - INFO - 发送第一段语音: 哎呀
+1
+2025-03-03 15:33:01,439 - core.providers.tts.base - INFO - 语音生成成功: 别着急😉，慢慢说。有什么我能帮忙的吗？希望你一切顺利，财富滚滚来💰！:tmp/tts-2025-03-03@20ae49e48f444371bfa75d2d9f0d5476.wav，重试0次
+2025-03-03 15:33:07,960 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:33:08,056 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_7f08a06b-14b2-441a-8ae6-0a36cf07ed85.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.055', 'batch_size': '1', 'rtf': '0.915'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.19it/s]rtf_avg: 0.915: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.14it/s]                                                                                          rtf_avg: 0.915: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.04it/s]
+2025-03-03 15:33:08,118 - core.utils.asr - INFO - 语音识别耗时: 0.062s | 结果: 。
+2025-03-03 15:33:08,119 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-03-03 15:33:11,482 - core.utils.asr - INFO - 音频文件保存耗时: 0.004s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_2999253b-d3fc-469d-94f2-27e0e2cab7d2.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.002', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.046'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.41it/s]rtf_avg: 0.046: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.37it/s]                                                                                          rtf_avg: 0.046: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.29it/s]
+2025-03-03 15:33:11,549 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 知道。
+2025-03-03 15:33:11,549 - core.handle.audioHandle - INFO - 识别文本: 知道。
+2025-03-03 15:33:11,549 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:33:11,550 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:33:12,119 - core.connection - INFO - 大模型说出第一句话: 嘿嘿
+1
+2025-03-03 15:33:12,698 - core.providers.tts.base - INFO - 语音生成成功: 嘿嘿:tmp/tts-2025-03-03@dfcd02f085cd402bbd44b9a8c573692a.wav，重试0次
+2025-03-03 15:33:12,715 - core.handle.audioHandle - INFO - 发送第一段语音: 嘿嘿
+1
+2025-03-03 15:33:13,816 - core.providers.tts.base - INFO - 语音生成成功: 知道就好！愿你在 2025 年里，知福来福，有财有运🎉！:tmp/tts-2025-03-03@c88610a921cf4653a13ca725cc2bf0e1.wav，重试0次
+2025-03-03 15:33:19,516 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:33:19,585 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_147f4041-76e7-4d04-a04a-85ffda599569.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.055', 'batch_size': '1', 'rtf': '0.922'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.04it/s]rtf_avg: 0.922: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.98it/s]                                                                                          rtf_avg: 0.922: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.86it/s]
+2025-03-03 15:33:19,646 - core.utils.asr - INFO - 语音识别耗时: 0.061s | 结果: ？
+2025-03-03 15:33:19,646 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:33:22,771 - core.utils.asr - INFO - 音频文件保存耗时: 0.005s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_fd2676bf-92cf-4140-9255-4e42b3205922.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.005', 'extract_feat': '0.003', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.044'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.32it/s]rtf_avg: 0.044: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.28it/s]                                                                                          rtf_avg: 0.044: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.18it/s]
+2025-03-03 15:33:22,838 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 说话呢。
+2025-03-03 15:33:22,838 - core.handle.audioHandle - INFO - 识别文本: 说话呢。
+2025-03-03 15:33:22,838 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:33:22,838 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:33:23,456 - core.connection - INFO - 大模型说出第一句话: 我在听呢
+1
+1
+2025-03-03 15:33:24,122 - core.providers.tts.base - INFO - 语音生成成功: 我在听呢:tmp/tts-2025-03-03@c30b723f5d3946b2a96b1040cef09569.wav，重试0次
+2025-03-03 15:33:24,142 - core.handle.audioHandle - INFO - 发送第一段语音: 我在听呢
+2025-03-03 15:33:25,169 - core.providers.tts.base - INFO - 语音生成成功: 你想说什么尽管说。祝你好运常伴，财源广进💰！:tmp/tts-2025-03-03@fe18705e76f54520b37200e9abe884f9.wav，重试0次
+2025-03-03 15:33:31,054 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:33:31,170 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_bf17283e-3534-4432-87b2-7aec85d2183b.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.002', 'extract_feat': '0.002', 'forward': '0.056', 'batch_size': '1', 'rtf': '0.930'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.89it/s]rtf_avg: 0.930: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.85it/s]                                                                                          rtf_avg: 0.930: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.75it/s]
+2025-03-03 15:33:31,234 - core.utils.asr - INFO - 语音识别耗时: 0.064s | 结果: ？
+2025-03-03 15:33:31,234 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:33:34,159 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C02200004003EDD45F087"}
+abort detected
+2025-03-03 15:33:34,159 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:33:34,159 - core.handle.abortHandle - INFO - nfc_info: 040C02200004003EDD45F087
+2025-03-03 15:33:34,159 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:33:34,160 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:33:34,160 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:33:34,201 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_0684c4ec-a9e2-455b-b0eb-9344ed50c7ba.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.002', 'forward': '0.058', 'batch_size': '1', 'rtf': '0.962'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.30it/s]rtf_avg: 0.962: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.25it/s]                                                                                          rtf_avg: 0.962: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.13it/s]
+2025-03-03 15:33:34,265 - core.utils.asr - INFO - 语音识别耗时: 0.064s | 结果: ？
+2025-03-03 15:33:34,265 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:33:34,715 - core.connection - INFO - 大模型说出第一句话: 嘿
+1
+2025-03-03 15:33:35,287 - core.providers.tts.base - INFO - 语音生成成功: 嘿:tmp/tts-2025-03-03@a558523ff939402a8eb718231ca33721.wav，重试0次
+2025-03-03 15:33:35,306 - core.handle.audioHandle - INFO - 发送第一段语音: 嘿
+1
+2025-03-03 15:33:36,662 - core.providers.tts.base - INFO - 语音生成成功: 又吟上诗啦😀！那我接一句“汗滴禾下土”，愿你辛勤付出都有回报，财运亨通挡不住💰！:tmp/tts-2025-03-03@993297452bad49908bae32168704962c.wav，重试0次
+2025-03-03 15:33:41,510 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:33:41,511 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:33:41,511 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:33:41,511 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:33:41,512 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:33:41,512 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:33:42,230 - core.connection - INFO - 大模型说出第一句话: 看来你真的很喜欢这首诗呢
+1
+1
+2025-03-03 15:33:43,017 - core.providers.tts.base - INFO - 语音生成成功: 看来你真的很喜欢这首诗呢:tmp/tts-2025-03-03@7577c71a90f445f4bc334385b472fc45.wav，重试0次
+2025-03-03 15:33:43,054 - core.handle.audioHandle - INFO - 发送第一段语音: 看来你真的很喜欢这首诗呢
+2025-03-03 15:33:44,070 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:33:44,127 - core.providers.tts.base - INFO - 语音生成成功: 那我再送你一句“谁知盘中餐，粒粒皆辛苦”，希望你珍惜每一份收获，财富源源不断💸！:tmp/tts-2025-03-03@5012b475d63b43f49b48dec623d3e6a2.wav，重试0次
+2025-03-03 15:33:51,498 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:33:51,633 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_7372510c-060c-46e6-9128-870e647382d2.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.074', 'batch_size': '1', 'rtf': '1.234'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.49it/s]rtf_avg: 1.234: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.46it/s]                                                                                          rtf_avg: 1.234: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.40it/s]
+2025-03-03 15:33:51,717 - core.utils.asr - INFO - 语音识别耗时: 0.084s | 结果: ？
+2025-03-03 15:33:51,717 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:33:57,603 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:33:57,604 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:33:57,604 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:33:57,604 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:33:57,605 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:33:57,605 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:33:57,608 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_3635af86-8137-43c2-bcfb-3436ed35fe8d.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.055', 'batch_size': '1', 'rtf': '0.916'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.17it/s]rtf_avg: 0.916: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.11it/s]                                                                                          rtf_avg: 0.916: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.00it/s]
+2025-03-03 15:33:57,671 - core.utils.asr - INFO - 语音识别耗时: 0.063s | 结果: ？
+2025-03-03 15:33:57,671 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:33:58,242 - core.connection - INFO - 大模型说出第一句话: 哈哈
+1
+2025-03-03 15:33:58,821 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-03-03@a60979099b834b35b1ee50e9594bfb89.wav，重试0次
+2025-03-03 15:33:58,837 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+1
+2025-03-03 15:34:00,025 - core.providers.tts.base - INFO - 语音生成成功: 这首诗念得真够多遍的😆！那我就祝你像勤劳的农民一样，收获满满，金玉满堂😉！:tmp/tts-2025-03-03@55423a6b64db46888269767499323a03.wav，重试0次
+2025-03-03 15:34:06,934 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:34:07,202 - core.utils.asr - INFO - 音频文件保存耗时: 0.000s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_9ef318b6-f9a2-4c83-8c7f-445c5196818b.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.056', 'batch_size': '1', 'rtf': '0.925'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.99it/s]rtf_avg: 0.925: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.93it/s]                                                                                          rtf_avg: 0.925: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.81it/s]
+2025-03-03 15:34:07,264 - core.utils.asr - INFO - 语音识别耗时: 0.061s | 结果: ？
+2025-03-03 15:34:07,264 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:34:12,227 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","nfc":"040C0220000400BE910CF002"}
+abort detected
+2025-03-03 15:34:12,228 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:34:12,228 - core.handle.abortHandle - INFO - nfc_info: 040C0220000400BE910CF002
+2025-03-03 15:34:12,228 - core.handle.abortHandle - INFO - Abort_NFC message received-end
+2025-03-03 15:34:12,228 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:34:12,228 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:34:12,283 - core.utils.asr - INFO - 音频文件保存耗时: 0.000s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_f5354cd0-5cbb-424f-b407-4845dad917b5.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.055', 'batch_size': '1', 'rtf': '0.919'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.11it/s]rtf_avg: 0.919: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.05it/s]                                                                                          rtf_avg: 0.919: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.94it/s]
+2025-03-03 15:34:12,346 - core.utils.asr - INFO - 语音识别耗时: 0.063s | 结果: ？
+2025-03-03 15:34:12,346 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:34:12,819 - core.connection - INFO - 大模型说出第一句话: 哎呀呀
+1
+2025-03-03 15:34:13,415 - core.providers.tts.base - INFO - 语音生成成功: 哎呀呀:tmp/tts-2025-03-03@d30a644d2ef34e8bb8056d681d7f4230.wav，重试0次
+2025-03-03 15:34:13,438 - core.handle.audioHandle - INFO - 发送第一段语音: 哎呀呀
+1
+2025-03-03 15:34:14,945 - core.providers.tts.base - INFO - 语音生成成功: 还是这首诗呀🤣！那我换个祝福吧，愿你在 2025 年，事业如日中天，财富滚滚而来🤑！:tmp/tts-2025-03-03@6b65996d227c421b9f9a127e8cd3c6e7.wav，重试0次
+2025-03-03 15:34:22,978 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:34:23,081 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_53dc38b6-2f35-4545-9e93-207cbdcf679a.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.054', 'batch_size': '1', 'rtf': '0.898'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.53it/s]rtf_avg: 0.898: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.48it/s]                                                                                          rtf_avg: 0.898: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.37it/s]
+2025-03-03 15:34:23,142 - core.utils.asr - INFO - 语音识别耗时: 0.061s | 结果: 。
+2025-03-03 15:34:23,142 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-03-03 15:34:42,036 - core.utils.asr - INFO - 音频文件保存耗时: 0.003s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_1bba1f0c-2552-45fd-abe9-910e02dd1899.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.003', 'extract_feat': '0.003', 'forward': '0.082', 'batch_size': '1', 'rtf': '0.091'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.20it/s]rtf_avg: 0.091: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.17it/s]                                                                                          rtf_avg: 0.091: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.12it/s]
+2025-03-03 15:34:42,127 - core.utils.asr - INFO - 语音识别耗时: 0.090s | 结果: 第。
+2025-03-03 15:34:42,127 - core.handle.audioHandle - INFO - 识别文本: 第。
+2025-03-03 15:34:42,128 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:34:42,128 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:34:42,865 - core.connection - INFO - 大模型说出第一句话: 这是想说啥呢😯？
+1
+1
+2025-03-03 15:34:43,511 - core.providers.tts.base - INFO - 语音生成成功: 这是想说啥呢😯？:tmp/tts-2025-03-03@7bf798b167044808a24d49ac75e80e48.wav，重试0次
+2025-03-03 15:34:43,536 - core.handle.audioHandle - INFO - 发送第一段语音: 这是想说啥呢😯？
+2025-03-03 15:34:44,590 - core.providers.tts.base - INFO - 语音生成成功: 是“第一”的意思吗？不管怎样，都希望你能名列前茅，财富多多哟💰！:tmp/tts-2025-03-03@30f7bc42c62a4b9bbb17203c4a2da1ab.wav，重试0次
+2025-03-03 15:34:51,168 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:34:51,240 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_2198eb78-3334-4645-82ff-02a96b44ca93.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.054', 'batch_size': '1', 'rtf': '0.900'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.51it/s]rtf_avg: 0.900: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.46it/s]                                                                                          rtf_avg: 0.900: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.36it/s]
+2025-03-03 15:34:51,302 - core.utils.asr - INFO - 语音识别耗时: 0.062s | 结果: ？
+2025-03-03 15:34:51,302 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:35:02,576 - core.utils.asr - INFO - 音频文件保存耗时: 0.008s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_2fe14f29-9a5b-4941-8c4c-15f5ac9f4856.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.008', 'extract_feat': '0.004', 'forward': '0.076', 'batch_size': '1', 'rtf': '0.030'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.07it/s]rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.04it/s]                                                                                          rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.97it/s]
+2025-03-03 15:35:02,659 - core.utils.asr - INFO - 语音识别耗时: 0.082s | 结果: 在听啊，我都说完了。
+2025-03-03 15:35:02,659 - core.handle.audioHandle - INFO - 识别文本: 在听啊，我都说完了。
+2025-03-03 15:35:02,660 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:35:02,660 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:35:03,312 - core.connection - INFO - 大模型说出第一句话: 哈哈
+1
+2025-03-03 15:35:03,899 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-03-03@6132a508ce834076ab2a20504663d517.wav，重试0次
+2025-03-03 15:35:03,916 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+1
+2025-03-03 15:35:05,184 - core.providers.tts.base - INFO - 语音生成成功: 我听到啦😀！那我再送你个吉利话，祝你在新的一年里，顺风顺水顺财神🧧！:tmp/tts-2025-03-03@48bcd943d0f4455786ba76ef5e79df1a.wav，重试0次
+2025-03-03 15:35:11,854 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:35:11,975 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_388f8d52-7cc9-4de6-8abe-a3a56b10cdb3.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.056', 'batch_size': '1', 'rtf': '0.939'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.70it/s]rtf_avg: 0.939: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.64it/s]                                                                                          rtf_avg: 0.939: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.50it/s]
+2025-03-03 15:35:12,038 - core.utils.asr - INFO - 语音识别耗时: 0.063s | 结果: ？
+2025-03-03 15:35:12,038 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:35:14,239 - core.utils.asr - INFO - 音频文件保存耗时: 0.006s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_e7b87b9e-8c61-496a-be86-3df809da76f4.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.005', 'extract_feat': '0.003', 'forward': '0.062', 'batch_size': '1', 'rtf': '0.042'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.01it/s]rtf_avg: 0.042: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.97it/s]                                                                                          rtf_avg: 0.042: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 15.88it/s]
+2025-03-03 15:35:14,307 - core.utils.asr - INFO - 语音识别耗时: 0.068s | 结果: 谢谢。
+2025-03-03 15:35:14,307 - core.handle.audioHandle - INFO - 识别文本: 谢谢。
+2025-03-03 15:35:14,308 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:35:14,308 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:35:14,981 - core.connection - INFO - 大模型说出第一句话: 不客气哟
+1
+1
+2025-03-03 15:35:15,581 - core.providers.tts.base - INFO - 语音生成成功: 不客气哟:tmp/tts-2025-03-03@6fadc894adb64d56a20de59436333415.wav，重试0次
+2025-03-03 15:35:15,601 - core.handle.audioHandle - INFO - 发送第一段语音: 不客气哟
+2025-03-03 15:35:16,635 - core.providers.tts.base - INFO - 语音生成成功: 能给你带来快乐和好运是我的荣幸，希望你每天都开开心心的🎉！:tmp/tts-2025-03-03@f555825b1d6548ecb32c08d3f3aaaed2.wav，重试0次
+2025-03-03 15:35:23,065 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-03-03 15:35:23,166 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_a201cfb5-ca7a-498c-ad9f-e0c7cec77ca2_29f67a06-9472-4647-9fc2-80af4aebb4d9.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.054', 'batch_size': '1', 'rtf': '0.900'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.49it/s]rtf_avg: 0.900: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.43it/s]                                                                                          rtf_avg: 0.900: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.33it/s]
+2025-03-03 15:35:23,228 - core.utils.asr - INFO - 语音识别耗时: 0.062s | 结果: ？
+2025-03-03 15:35:23,228 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-03-03 15:35:43,863 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:35:43,863 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:35:44,645 - core.connection - INFO - 大模型说出第一句话: 时光飞逝
+1
+1
+2025-03-03 15:35:45,297 - core.providers.tts.base - INFO - 语音生成成功: 时光飞逝:tmp/tts-2025-03-03@a7d4a1edce7c4223a56d7e82c0da248a.wav，重试0次
+2025-03-03 15:35:45,321 - core.handle.audioHandle - INFO - 发送第一段语音: 时光飞逝
+2025-03-03 15:35:46,085 - core.providers.tts.base - INFO - 语音生成成功: 期待下次聊，拜拜拜😉！:tmp/tts-2025-03-03@387c1d115f9c40e7822da4b742b23dd5.wav，重试0次
+2025-03-03 15:35:49,864 - core.connection - INFO - 客户端断开连接
+2025-03-03 15:35:49,865 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:35:49,865 - core.connection - INFO - 连接资源已释放
+2025-03-03 15:37:36,077 - websockets.server - INFO - connection open
+2025-03-03 15:37:36,078 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '4e02654d-2e39-42c2-81b5-0acda25bac75', 'connection': 'Upgrade', 'device-id': '64:e8:33:48:f2:c0', 'protocol-version': '1', 'sec-websocket-key': 'MiC8jyU17PyCjYPzRZTj2g==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-03-03 15:37:36,078 - root - INFO - bUsePrivateConfig: False, device_id: 64:e8:33:48:f2:c0
+2025-03-03 15:37:36,079 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': 'ba74e2d3-a7af-4171-a5d9-89f214cccc6d'}
+2025-03-03 15:37:36,109 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-03-03 15:37:36,161 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-03-03 15:37:36,267 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:37:36,267 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-03-03 15:37:39,776 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:37:39,811 - core.utils.asr - INFO - 音频文件保存耗时: 0.011s | 路径: tmp/asr_ba74e2d3-a7af-4171-a5d9-89f214cccc6d_bc4694a4-8c39-4d87-a776-6feb6852979c.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.011', 'extract_feat': '0.009', 'forward': '0.099', 'batch_size': '1', 'rtf': '0.027'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.12it/s]rtf_avg: 0.027: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.10it/s]                                                                                          rtf_avg: 0.027: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 10.00it/s]
+2025-03-03 15:37:39,916 - core.utils.asr - INFO - 语音识别耗时: 0.105s | 结果: 你好啊你好啊。
+2025-03-03 15:37:39,917 - core.handle.audioHandle - INFO - 识别文本: 你好啊你好啊。
+2025-03-03 15:37:39,917 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:37:39,918 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:37:40,792 - core.connection - INFO - 大模型说出第一句话: 你好呀你好呀
+1
+1
+2025-03-03 15:37:41,492 - core.providers.tts.base - INFO - 语音生成成功: 你好呀你好呀:tmp/tts-2025-03-03@32fd6ce86aef4c65b7d16bdb7e3ceaaf.wav，重试0次
+2025-03-03 15:37:41,523 - core.handle.audioHandle - INFO - 发送第一段语音: 你好呀你好呀
+2025-03-03 15:37:42,413 - core.providers.tts.base - INFO - 语音生成成功: 很高兴和你聊天，愿你天天都有好心情，财源滚滚来💰！:tmp/tts-2025-03-03@f6898d8ace744f3eb2ef38311af962f2.wav，重试0次
+2025-03-03 15:37:47,490 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort"}
+abort detected
+2025-03-03 15:37:47,490 - core.handle.abortHandle - INFO - Abort message received
+2025-03-03 15:37:47,490 - core.handle.abortHandle - INFO - Abort message received-end
+2025-03-03 15:37:47,599 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:37:52,070 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:37:52,084 - core.utils.asr - INFO - 音频文件保存耗时: 0.013s | 路径: tmp/asr_ba74e2d3-a7af-4171-a5d9-89f214cccc6d_4db6c53c-0888-4ef8-afea-c7a7e8146570.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.011', 'extract_feat': '0.008', 'forward': '0.073', 'batch_size': '1', 'rtf': '0.017'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.62it/s]rtf_avg: 0.017: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.59it/s]                                                                                          rtf_avg: 0.017: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 13.41it/s]
+2025-03-03 15:37:52,164 - core.utils.asr - INFO - 语音识别耗时: 0.080s | 结果: 声音调整到40%40。
+2025-03-03 15:37:52,164 - core.handle.audioHandle - INFO - 识别文本: 声音调整到40%40。
+2025-03-03 15:37:52,165 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:37:52,165 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:37:52,772 - core.connection - INFO - 大模型说出第一句话: 哈哈
+1
+1
+2025-03-03 15:37:53,354 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-03-03@2c855f63f2f24b529e8427c0dab42906.wav，重试0次
+2025-03-03 15:37:53,372 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+2025-03-03 15:37:54,434 - core.providers.tts.base - INFO - 语音生成成功: 我听到啦😀！不过我没办法帮你调整声音哦。祝你一切顺利，财富多多🎉！:tmp/tts-2025-03-03@e510925889d9492a88354c99b44c1558.wav，重试0次
+2025-03-03 15:38:05,160 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:38:08,486 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:38:08,491 - core.utils.asr - INFO - 音频文件保存耗时: 0.005s | 路径: tmp/asr_ba74e2d3-a7af-4171-a5d9-89f214cccc6d_3e263d67-41e8-41e7-9f90-a7ee1929789e.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.005', 'extract_feat': '0.006', 'forward': '0.087', 'batch_size': '1', 'rtf': '0.056'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 11.47it/s]rtf_avg: 0.056: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 11.44it/s]                                                                                          rtf_avg: 0.056: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 11.40it/s]
+2025-03-03 15:38:08,584 - core.utils.asr - INFO - 语音识别耗时: 0.093s | 结果: 废出。
+2025-03-03 15:38:08,584 - core.handle.audioHandle - INFO - 识别文本: 废出。
+2025-03-03 15:38:08,585 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:38:08,585 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:38:09,208 - core.connection - INFO - 大模型说出第一句话: 别着急
+1
+1
+2025-03-03 15:38:09,796 - core.providers.tts.base - INFO - 语音生成成功: 别着急:tmp/tts-2025-03-03@de320236a6ff4ce6adc1913f07d94d3c.wav，重试0次
+2025-03-03 15:38:09,814 - core.handle.audioHandle - INFO - 发送第一段语音: 别着急
+2025-03-03 15:38:10,830 - core.providers.tts.base - INFO - 语音生成成功: 是遇到什么烦心事了吗？跟我说说，愿你能排除万难，财运亨通💪！:tmp/tts-2025-03-03@ae1659e6e22c4cf9ae3016bbda99d475.wav，重试0次
+2025-03-03 15:38:19,087 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-03-03 15:38:21,473 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-03-03 15:38:21,480 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_ba74e2d3-a7af-4171-a5d9-89f214cccc6d_540ee644-fd74-4b92-bab9-9601ece93d7a.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.009', 'extract_feat': '0.005', 'forward': '0.068', 'batch_size': '1', 'rtf': '0.030'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.69it/s]rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.64it/s]                                                                                          rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.56it/s]
+2025-03-03 15:38:21,554 - core.utils.asr - INFO - 语音识别耗时: 0.074s | 结果: 退出退出。
+2025-03-03 15:38:21,555 - core.handle.audioHandle - INFO - 识别文本: 退出退出。
+2025-03-03 15:38:21,555 - core.providers.llm.openai.openai - INFO - LLMProvider: response llm_role: 1
+2025-03-03 15:38:21,555 - core.providers.llm.openai.openai - INFO - LLMProvider: final response llm_role: 1
+2025-03-03 15:38:22,258 - core.connection - INFO - 大模型说出第一句话: 好的
+1
+2025-03-03 15:38:22,826 - core.providers.tts.base - INFO - 语音生成成功: 好的:tmp/tts-2025-03-03@e187dcb2245b43da8a562d82bb390a34.wav，重试0次
+2025-03-03 15:38:22,842 - core.handle.audioHandle - INFO - 发送第一段语音: 好的
