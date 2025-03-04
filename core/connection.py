@@ -365,9 +365,3 @@ class ConnectionHandler:
         self.client_have_voice_last_time = 0
         self.client_voice_stop = False
         self.logger.bind(tag=TAG).debug("VAD states reset.")
-
-    def stop_all_tasks(self):
-        while self.scheduled_tasks:
-            task = self.scheduled_tasks.popleft()
-            task.cancel()
-        self.scheduled_tasks.clear()

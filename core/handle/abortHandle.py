@@ -58,7 +58,6 @@ async def handleAbortMessage(conn, msg_json):
         logger.bind(tag=TAG).info(f"nfc_info: {nfc_info}")
         conn.nfc_abort = True
         conn.llm_role = nfc_role.get(nfc_info, "1")
-        conn.stop_all_tasks()
         await conn.websocket.send(json.dumps({"type": "tts", "state": "stop", "session_id": conn.session_id}))
         conn.clearSpeakStatus()
         logger.info("Abort_NFC message received-end")
@@ -75,7 +74,6 @@ async def handleAbortMessage(conn, msg_json):
         conn.client_abort = True
         # conn.nfc_abort = False
         # 打断屏显任务
-        conn.stop_all_tasks()
         # 打断客户端说话状态
         await conn.websocket.send(json.dumps({"type": "tts", "state": "stop", "session_id": conn.session_id}))
         conn.clearSpeakStatus()
