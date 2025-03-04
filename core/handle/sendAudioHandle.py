@@ -28,7 +28,7 @@ async def sendAudioMessage(conn, audios, text):
     play_position = 0  # 已播放的时长（毫秒）
 
     for opus_packet in audios:
-        if conn.client_abort:
+        if conn.client_abort or conn.nfc_abort:
             return
 
         # 计算当前包的预期发送时间
@@ -46,6 +46,7 @@ async def sendAudioMessage(conn, audios, text):
     await send_tts_message(conn, "sentence_end", text)
     # 发送结束消息（如果是最后一个文本）
     if conn.llm_finish_task and text == conn.tts_last_text:
+        
         await send_tts_message(conn, 'stop', None)
         if await isLLMWantToFinish(text):
             await conn.close()
@@ -53,6 +54,7 @@ async def sendAudioMessage(conn, audios, text):
 
 async def send_tts_message(conn, state, text=None):
     """发送 TTS 状态消息"""
+    print(f"stop咯~~~~~~~~~~~~~~~~~~~~~~~{state}")
     message = {
         "type": "tts",
         "state": state,
@@ -68,6 +70,7 @@ async def send_tts_message(conn, state, text=None):
 
 async def send_stt_message(conn, text):
     """发送 STT 状态消息"""
+    print(f"send stt message: {text}")
     stt_text = get_string_no_punctuation_or_emoji(text)
     await conn.websocket.send(json.dumps({
         "type": "stt",

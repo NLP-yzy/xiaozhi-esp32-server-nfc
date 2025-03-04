@@ -69,44 +69,8 @@ async def isLLMWantToFinish(conn):
 
 async def startToChat(conn, text):
     # 异步发送 stt 信息
-    stt_task = asyncio.create_task(
-        schedule_with_interrupt(0, send_stt_message(conn, text))
-    )
-    conn.scheduled_tasks.append(stt_task)
+    await send_stt_message(conn, text)
     conn.executor.submit(conn.chat, text)
-
-
-async def sendAudioMessage(conn, audios, duration, text):
-    base_delay = conn.tts_duration
-
-    # 发送 tts.start
-    if text == conn.tts_first_text:
-        logger.info(f"发送第一段语音: {text}")
-        conn.tts_start_speak_time = time.time()
-
-    # 发送 sentence_start（每个音频文件之前发送一次）
-    sentence_task = asyncio.create_task(
-        schedule_with_interrupt(base_delay, send_tts_message(conn, "sentence_start", text))
-    )
-    conn.scheduled_tasks.append(sentence_task)
-
-    conn.tts_duration += duration
-
-    # 发送音频数据
-    for idx, opus_packet in enumerate(audios):
-        await conn.websocket.send(opus_packet)
-
-    if conn.llm_finish_task and text == conn.tts_last_text:
-        stop_duration = conn.tts_duration - (time.time() - conn.tts_start_speak_time)
-        stop_task = asyncio.create_task(
-            schedule_with_interrupt(stop_duration, send_tts_message(conn, 'stop'))
-        )
-        conn.scheduled_tasks.append(stop_task)
-        if await isLLMWantToFinish(conn):
-            finish_task = asyncio.create_task(
-                schedule_with_interrupt(stop_duration, finishToChat(conn))
-            )
-            conn.scheduled_tasks.append(finish_task)
 
 
 async def send_tts_message(conn, state, text=None):

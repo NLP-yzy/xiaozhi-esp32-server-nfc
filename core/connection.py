@@ -11,7 +11,6 @@ import threading
 import websockets
 from typing import Dict, Any
 from collections import deque
-from core.utils.util import is_segment
 from core.utils.dialogue import Message, Dialogue
 from core.handle.textHandle import handleTextMessage
 from core.utils.util import get_string_no_punctuation_or_emoji
@@ -228,7 +227,7 @@ class ConnectionHandler:
         for content in llm_responses:
             response_message.append(content)
             # 如果中途被打断，就停止生成
-            if self.client_abort and self.nfc_abort:
+            if self.client_abort:
                 break
 
             end_time = time.time()  # 记录结束时间
@@ -302,7 +301,7 @@ class ConnectionHandler:
                     continue
                 if not self.client_abort and not self.nfc_abort:
                     # 如果没有中途打断就发送语音
-                    self.audio_play_queue.put((opus_datas, duration, text))
+                    self.audio_play_queue.put((opus_datas, text))
                 if self.tts.delete_audio_file and os.path.exists(tts_file):
                     os.remove(tts_file)
             except Exception as e:
@@ -318,8 +317,8 @@ class ConnectionHandler:
         while not self.stop_event.is_set():
             text = None
             try:
-                opus_datas, duration, text = self.audio_play_queue.get()
-                future = asyncio.run_coroutine_threadsafe(sendAudioMessage(self, opus_datas, duration, text), self.loop)
+                opus_datas, text = self.audio_play_queue.get()
+                future = asyncio.run_coroutine_threadsafe(sendAudioMessage(self, opus_datas, text), self.loop)
                 future.result()
             except Exception as e:
                 self.logger.bind(tag=TAG).error(f"audio_play_priority priority_thread: {text}{e}")

@@ -26,6 +26,7 @@ async def handleAudioMessage(conn, audio):
     # 如果本段有声音，且已经停止了
     if conn.client_voice_stop:
         conn.client_abort = False
+        # conn.nfc_abort = False
         conn.asr_server_receive = False
         # 音频太短了，无法识别
         if len(conn.asr_audio) < 3:
@@ -72,6 +73,7 @@ async def no_voice_close_connect(conn):
         close_connection_no_voice_time = conn.config.get("close_connection_no_voice_time", 120)
         if no_voice_time > 1000 * close_connection_no_voice_time:
             conn.client_abort = False
+            conn.nfc_abort = False
             conn.asr_server_receive = False
             prompt = "时间过得真快，我都好久没说话了。请你用十个字左右话跟我告别，以“再见”或“拜拜”为结尾"
             await startToChat(conn, prompt)

@@ -7,7 +7,7 @@
 server:
   # 服务器监听地址和端口(Server listening address and port)
   ip: 0.0.0.0
-  port: 10664
+  port: 10663
   # 认证配置
   auth:
     # 是否启用认证
@@ -43,7 +43,7 @@ manager:
   port: 8002
 iot:
   Speaker:
-    volume: 100
+    volume: 70
 xiaozhi:
   type: hello
   version: 1
@@ -62,7 +62,7 @@ prompt: |
 delete_audio: true
 
 # 没有语音输入多久后断开连接(秒)，默认2分钟，即120秒
-close_connection_no_voice_time: 20
+close_connection_no_voice_time: 35
 
 # 是否启用私有配置(Enable private configuration),启用后可以每个设备有不同的配置
 # 目前这个模块还在开发中，建议：不要修改use_private_config选项
@@ -226,7 +226,7 @@ TTS:
     seed: null
     channels: 1
     rate: 44100
-    api_key: "你的api_key"
+    api_key: "abc"
     api_url: "http://127.0.0.1:7860/v1/tts"
   GPT_SOVITS_V2:
     # 定义TTS API类型

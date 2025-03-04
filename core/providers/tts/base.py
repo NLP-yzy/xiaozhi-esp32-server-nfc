@@ -58,7 +58,7 @@ class TTSProviderBase(ABC):
         raw_data = audio.raw_data
 
         # 初始化Opus编码器
-        encoder = opuslib.Encoder(16000, 1, opuslib.APPLICATION_AUDIO)
+        encoder = opuslib_next.Encoder(16000, 1, opuslib_next.APPLICATION_AUDIO)
 
         # 编码参数
         frame_duration = 60  # 60ms per frame

@@ -71,7 +71,7 @@ class MusicHandler:
         else:
             self.music_dir = os.path.abspath("./music")
             self.music_related_keywords = ["来一首歌", "唱一首歌", "播放音乐", "来点音乐", "背景音乐", "放首歌",
-                                           "播放歌曲", "来点背景音乐", "我想听歌", "我要听歌", "放点音乐"]
+                                           "播放歌曲", "来点背景音乐", "我想听歌", "我要听歌", "放点音乐", "唱首歌"]
             self.music_ext = (".mp3", ".wav", ".p3")
             self.refresh_time = 60
 

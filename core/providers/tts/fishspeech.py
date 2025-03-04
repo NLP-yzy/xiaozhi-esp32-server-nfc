@@ -115,6 +115,8 @@ class TTSProvider(TTSProviderBase):
         # else:
         #     self.reference_id = "bajie"
         self.reference_id = role
+        if role == "1":
+            self.reference_id = "wangjiaer"
 
         data = {
             "text": text.encode("utf-8"),
@@ -131,7 +133,7 @@ class TTSProvider(TTSProviderBase):
             "use_memory_cache": self.use_memory_cache,
             "seed": 4000,
         }
-        print(self.reference_id)
+        print("tts_id", self.reference_id)
         response = requests.post(
             self.api_url,
             json=data,

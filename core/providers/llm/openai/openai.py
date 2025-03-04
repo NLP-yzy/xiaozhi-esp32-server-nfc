@@ -33,7 +33,8 @@ class LLMProvider(LLMProviderBase):
                     "bajie": "猪八戒",
                     "shaseng": "沙僧",}.get(llm_role, "error")
                 if llm_role == "error":
-                    yield("抱歉，NFC卡识别结果为")
+                    yield("抱歉NFC卡识别结果为错误角色")
+                    return
 
             elif llm_role != "1":
                 llm_role = "观音菩萨"
