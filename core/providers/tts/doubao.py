@@ -21,10 +21,17 @@ class TTSProvider(TTSProviderBase):
     def generate_filename(self, extension=".wav"):
         return os.path.join(self.output_file, f"tts-{datetime.now().date()}@{uuid.uuid4().hex}{extension}")
 
-    async def text_to_speak(self, text, output_file):
+    async def text_to_speak(self, text, output_file, role):
+
+        if role == "init":
+            self.voice = "BV021_streaming"
+        else:
+            self.voice = "BV019_streaming"
+
+        print(self.voice)
         request_json = {
             "app": {
-                "appid": f"{self.appid}",
+                "appid": self.appid,
                 "token": "access_token",
                 "cluster": self.cluster
             },

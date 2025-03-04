@@ -7,7 +7,7 @@
 server:
   # 服务器监听地址和端口(Server listening address and port)
   ip: 0.0.0.0
-  port: 8000
+  port: 10664
   # 认证配置
   auth:
     # 是否启用认证
@@ -54,7 +54,7 @@ xiaozhi:
     channels: 1
     frame_duration: 60
 prompt: |
-  你是一个叫小智/小志的台湾女孩，说话机车，声音好听，习惯简短表达，爱用网络梗。
+  你是一个叫小天的东北小伙，说话幽默，习惯简短表达，爱用网络梗。
   请注意，要像一个人一样说话，请不要回复表情符号、代码、和xml标签。
   当前时间是:{date_time}，现在我正在和你进行语音聊天，我们开始吧。
   如果用户希望结束对话，请在最后说“拜拜”或“再见”。
@@ -62,7 +62,7 @@ prompt: |
 delete_audio: true
 
 # 没有语音输入多久后断开连接(秒)，默认2分钟，即120秒
-close_connection_no_voice_time: 120
+close_connection_no_voice_time: 20
 
 # 是否启用私有配置(Enable private configuration),启用后可以每个设备有不同的配置
 # 目前这个模块还在开发中，建议：不要修改use_private_config选项
@@ -77,9 +77,9 @@ selected_module:
   ASR: FunASR
   VAD: SileroVAD
   # 将根据配置名称对应的type调用实际的LLM适配器
-  LLM: ChatGLMLLM
+  LLM: AliLLM
   # TTS将根据配置名称对应的type调用实际的TTS适配器
-  TTS: EdgeTTS
+  TTS: FishSpeech
 
 ASR:
   FunASR:
@@ -92,11 +92,12 @@ ASR:
     access_token: 你的火山引擎语音合成服务access_token
     cluster: volcengine_input_common
     output_dir: tmp/
+
 VAD:
   SileroVAD:
     threshold: 0.5
     model_dir: models/snakers4_silero-vad
-    min_silence_duration_ms: 700  # 如果说话停顿比较长，可以把这个值设置大一些
+    min_silence_duration_ms: 800  # 如果说话停顿比较长，可以把这个值设置大一些
 
 LLM:
   # 当前支持的type为openai、dify、ollama，可自行适配
@@ -106,7 +107,7 @@ LLM:
     # 可在这里找到你的 api_key https://bailian.console.aliyun.com/?apiKey=1#/api-key
     base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
     model_name: qwen-turbo
-    api_key: 你的deepseek api key
+    api_key: sk-2c5db10891604e3b8dd384e0c60271f9
   DeepSeekLLM:
     # 定义LLM API类型
     type: openai
@@ -147,6 +148,7 @@ LLM:
     type: coze
     bot_id: 你的bot_id
     user_id: 你的user_id
+    base_url: "https://api.coze.cn/open_api/v2/chat" # 服务地址
     personal_access_token: 你的coze个人令牌
   LMStudioLLM:
     # 定义LLM API类型
@@ -175,11 +177,11 @@ TTS:
     # 购买服务后，购买免费的音色后，可能要等半小时左右，才能使用。
     # 地址：https://console.volcengine.com/speech/service/8
     api_url: https://openspeech.bytedance.com/api/v1/tts
-    voice: BV001_streaming
+    voice: BV019_Zd_z2tl6tGpczazI
     output_file: tmp/
     authorization: "Bearer;"
-    appid: 你的火山引擎语音合成服务appid
-    access_token: 你的火山引擎语音合成服务access_token
+    appid: 8987375041
+    access_token: J8jJfsrrbO9C4WD-5fwUK0gsRZIPR_DT
     cluster: volcano_tts
   CosyVoiceSiliconflow:
     type: siliconflow
@@ -210,9 +212,9 @@ TTS:
     type: fishspeech
     output_file: tmp/
     response_format: wav
-    reference_id: null
-    reference_audio: ["/tmp/test.wav",]
-    reference_text: ["你弄来这些吟词宴曲来看，还是这些混话来欺负我。",]
+    reference_id: "houliangping"
+    reference_audio: null
+    reference_text: null
     normalize: true
     max_new_tokens: 1024
     chunk_length: 200
@@ -225,7 +227,7 @@ TTS:
     channels: 1
     rate: 44100
     api_key: "你的api_key"
-    api_url: "http://127.0.0.1:8080/v1/tts"
+    api_url: "http://127.0.0.1:7860/v1/tts"
   GPT_SOVITS_V2:
     # 定义TTS API类型
     #启动tts方法：

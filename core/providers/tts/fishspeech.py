@@ -3,6 +3,7 @@ import base64
 import os
 import uuid
 import requests
+import json
 import ormsgpack
 from pathlib import Path
 from pydantic import BaseModel, Field, conint, model_validator
@@ -101,24 +102,23 @@ class TTSProvider(TTSProviderBase):
         self.streaming = config.get("streaming",False)
         self.use_memory_cache = config.get("use_memory_cache","on")
         self.seed = config.get("seed")
-        self.api_url =   config.get("api_url","http://127.0.0.1:8080/v1/tts")
+        self.api_url =   config.get("api_url","http://127.0.0.1:7860/v1/tts")
 
     def generate_filename(self, extension=".wav"):
         return os.path.join(self.output_file, f"tts-{datetime.now().date()}@{uuid.uuid4().hex}{extension}")
 
-    async def text_to_speak(self, text, output_file):
+    async def text_to_speak(self, text, output_file, role):
         # Prepare reference data
-        byte_audios = [audio_to_bytes(ref_audio) for ref_audio in self.reference_audio]
-        ref_texts = [read_ref_text(ref_text) for ref_text in self.reference_text]
+
+        # if role == "init":
+        #     self.reference_id = "wukong"
+        # else:
+        #     self.reference_id = "bajie"
+        self.reference_id = role
 
         data = {
-            "text": text,
-            "references": [
-                ServeReferenceAudio(
-                    audio=audio if audio else b"", text=text
-                )
-                for text, audio in zip(ref_texts, byte_audios)
-            ],
+            "text": text.encode("utf-8"),
+            "references": [],
             "reference_id": self.reference_id,
             "normalize": self.normalize,
             "format": self.format,
@@ -129,17 +129,15 @@ class TTSProvider(TTSProviderBase):
             "temperature": self.temperature,
             "streaming": self.streaming,
             "use_memory_cache": self.use_memory_cache,
-            "seed": self.seed,
+            "seed": 4000,
         }
-
-        pydantic_data = ServeTTSRequest(**data)
-
+        print(self.reference_id)
         response = requests.post(
             self.api_url,
-            data=ormsgpack.packb(pydantic_data, option=ormsgpack.OPT_SERIALIZE_PYDANTIC),
+            json=data,
             headers={
-                "Authorization": f"Bearer {self.api_key}",
-                "Content-Type": "application/msgpack",
+                "Authorization": f"Bearer key",
+                "Content-Type": "application/json",
             },
         )
 

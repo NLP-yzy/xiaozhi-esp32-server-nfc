@@ -224,7 +224,6 @@ server:
 ### 3、我说话很慢，停顿时小智老是抢话 🗣️
 
 建议：在配置文件中找到如下部分，将 `min_silence_duration_ms` 的值调大（例如改为 `1000`）：
-
 ```yaml
 VAD:
   SileroVAD:

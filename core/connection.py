@@ -4,11 +4,14 @@ import uuid
 import time
 import queue
 import asyncio
+import logging
 import traceback
 from config.logger import setup_logging
 import threading
 import websockets
 from typing import Dict, Any
+from collections import deque
+from core.utils.util import is_segment
 from core.utils.dialogue import Message, Dialogue
 from core.handle.textHandle import handleTextMessage
 from core.utils.util import get_string_no_punctuation_or_emoji
@@ -20,7 +23,6 @@ from core.auth import AuthMiddleware, AuthenticationError
 from core.utils.auth_code_gen import AuthCodeGenerator
 
 TAG = __name__
-
 
 class ConnectionHandler:
     def __init__(self, config: Dict[str, Any], _vad, _asr, _llm, _tts, _music):
@@ -36,6 +38,7 @@ class ConnectionHandler:
 
         # 客户端状态相关
         self.client_abort = False
+        self.nfc_abort = False
         self.client_listen_mode = "auto"
 
         # 线程任务相关
@@ -65,6 +68,7 @@ class ConnectionHandler:
 
         # llm相关变量
         self.llm_finish_task = False
+        self.llm_role = "1"
         self.dialogue = Dialogue()
 
         # tts相关变量
@@ -209,26 +213,26 @@ class ConnectionHandler:
             finally:
                 loop.close()
             return True
-
         self.dialogue.put(Message(role="user", content=query))
         response_message = []
         processed_chars = 0  # 跟踪已处理的字符位置
         try:
             start_time = time.time()
-            llm_responses = self.llm.response(self.session_id, self.dialogue.get_llm_dialogue())
+            llm_responses = self.llm.response(self.session_id, self.dialogue.get_llm_dialogue(), self.llm_role)
         except Exception as e:
             self.logger.bind(tag=TAG).error(f"LLM 处理出错 {query}: {e}")
             return None
-
+        # 提交 TTS 任务到线程池
         self.llm_finish_task = False
+        init_flag = False
         for content in llm_responses:
             response_message.append(content)
-            if self.client_abort:
+            # 如果中途被打断，就停止生成
+            if self.client_abort and self.nfc_abort:
                 break
 
-            end_time = time.time()
-            self.logger.bind(tag=TAG).debug(f"大模型返回时间: {end_time - start_time} 秒, 生成token={content}")
-
+            end_time = time.time()  # 记录结束时间
+            self.logger.bind(tag=TAG).debug(f"大模型返回时间时间: {end_time - start_time} 秒, 生成token={content}")
             # 合并当前全部文本并处理未分割部分
             full_text = "".join(response_message)
             current_text = full_text[processed_chars:]  # 从未处理的位置开始
@@ -245,11 +249,12 @@ class ConnectionHandler:
             if last_punct_pos != -1:
                 segment_text_raw = current_text[:last_punct_pos + 1]
                 segment_text = get_string_no_punctuation_or_emoji(segment_text_raw)
-                if segment_text:
+                if segment_text and init_flag is False:
                     self.recode_first_last_text(segment_text)
                     future = self.executor.submit(self.speak_and_play, segment_text)
                     self.tts_queue.put(future)
                     processed_chars += len(segment_text_raw)  # 更新已处理字符位置
+                    init_flag = True
 
         # 处理最后剩余的文本
         full_text = "".join(response_message)
@@ -288,15 +293,16 @@ class ConnectionHandler:
                     else:
                         self.logger.bind(tag=TAG).error(f"TTS文件不存在: {tts_file}")
                         opus_datas = []
+                        duration = 0
                 except TimeoutError:
                     self.logger.bind(tag=TAG).error("TTS 任务超时")
                     continue
                 except Exception as e:
                     self.logger.bind(tag=TAG).error(f"TTS 任务出错: {e}")
                     continue
-                if not self.client_abort:
+                if not self.client_abort and not self.nfc_abort:
                     # 如果没有中途打断就发送语音
-                    self.audio_play_queue.put((opus_datas, text))
+                    self.audio_play_queue.put((opus_datas, duration, text))
                 if self.tts.delete_audio_file and os.path.exists(tts_file):
                     os.remove(tts_file)
             except Exception as e:
@@ -312,8 +318,8 @@ class ConnectionHandler:
         while not self.stop_event.is_set():
             text = None
             try:
-                opus_datas, text = self.audio_play_queue.get()
-                future = asyncio.run_coroutine_threadsafe(sendAudioMessage(self, opus_datas, text), self.loop)
+                opus_datas, duration, text = self.audio_play_queue.get()
+                future = asyncio.run_coroutine_threadsafe(sendAudioMessage(self, opus_datas, duration, text), self.loop)
                 future.result()
             except Exception as e:
                 self.logger.bind(tag=TAG).error(f"audio_play_priority priority_thread: {text}{e}")
@@ -322,7 +328,7 @@ class ConnectionHandler:
         if text is None or len(text) <= 0:
             self.logger.bind(tag=TAG).info(f"无需tts转换，query为空，{text}")
             return None, text
-        tts_file = self.tts.to_tts(text)
+        tts_file = self.tts.to_tts(text, self.llm_role)
         if tts_file is None:
             self.logger.bind(tag=TAG).error(f"tts转换失败，{text}")
             return None, text
@@ -336,6 +342,7 @@ class ConnectionHandler:
         self.tts_first_text = None
         self.tts_duration = 0
         self.tts_start_speak_time = None
+        
 
     def recode_first_last_text(self, text):
         if not self.tts_first_text:
@@ -345,8 +352,7 @@ class ConnectionHandler:
 
     async def close(self):
         """资源清理方法"""
-
-        # 清理其他资源
+        self.llm_role = "1"
         self.stop_event.set()
         self.executor.shutdown(wait=False)
         if self.websocket:
@@ -359,3 +365,9 @@ class ConnectionHandler:
         self.client_have_voice_last_time = 0
         self.client_voice_stop = False
         self.logger.bind(tag=TAG).debug("VAD states reset.")
+
+    def stop_all_tasks(self):
+        while self.scheduled_tasks:
+            task = self.scheduled_tasks.popleft()
+            task.cancel()
+        self.scheduled_tasks.clear()

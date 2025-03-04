@@ -1,0 +1,210 @@
+2025-02-26 13:09:55,259 - core.utils.vad - INFO - SileroVAD
+funasr version: 1.1.12.
+2025-02-26 13:09:55,344 - root - INFO - download models from model hub: hf
+2025-02-26 13:09:56,928 - root - INFO - Loading pretrained params from models/SenseVoiceSmall/model.pt
+2025-02-26 13:09:56,933 - root - INFO - ckpt: models/SenseVoiceSmall/model.pt
+/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/funasr/train_utils/load_pretrained_model.py:39: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ori_state = torch.load(path, map_location=map_location)
+2025-02-26 13:09:57,928 - root - INFO - scope_map: ['module.', 'None']
+2025-02-26 13:09:57,929 - root - INFO - excludes: None
+2025-02-26 13:09:58,059 - root - INFO - Loading ckpt: models/SenseVoiceSmall/model.pt, status: <All keys matched successfully>
+2025-02-26 13:09:59,052 - core.websocket_server - INFO - =======下面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-02-26 13:09:59,052 - core.websocket_server - INFO - Server is running at ws://192.168.39.203:10664
+2025-02-26 13:09:59,053 - core.websocket_server - INFO - =======上面的地址是websocket协议地址，请勿用浏览器访问=======
+2025-02-26 13:09:59,060 - websockets.server - INFO - server listening on 0.0.0.0:10664
+2025-02-26 14:49:44,752 - websockets.server - INFO - connection open
+2025-02-26 14:49:44,753 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '25e5f73e-ea53-4e50-b4a4-ee6c3b27434d', 'connection': 'Upgrade', 'device-id': '3c:84:27:cc:62:54', 'protocol-version': '1', 'sec-websocket-key': 'Lc9GKQS0eNhop/8/K/H82Q==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-02-26 14:49:44,753 - root - INFO - bUsePrivateConfig: False, device_id: 3c:84:27:cc:62:54
+2025-02-26 14:49:44,753 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '0e3dceb8-d1b2-4fbd-9976-7308bab82ba1'}
+2025-02-26 14:49:44,790 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-02-26 14:49:44,824 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-02-26 14:49:44,824 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:49:44,894 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":70}}]}
+2025-02-26 14:49:45,150 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:49:45,183 - core.utils.asr - INFO - 音频文件保存耗时: 0.002s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_d1dbc79a-9c77-4787-bbfe-751d2ca66154.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.08it/s]{'load_data': '0.004', 'extract_feat': '0.005', 'forward': '0.324', 'batch_size': '1', 'rtf': '1.081'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.08it/s]rtf_avg: 1.081: 100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.08it/s]                                                                                          rtf_avg: 1.081: 100%|[34m██████████[0m| 1/1 [00:00<00:00,  3.08it/s]
+2025-02-26 14:49:45,517 - core.utils.asr - INFO - 语音识别耗时: 0.333s | 结果: .
+2025-02-26 14:49:45,517 - core.handle.audioHandle - INFO - 识别文本: .
+2025-02-26 14:49:46,532 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:49:48,576 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:49:48,651 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_e93a7fc0-237d-4eb0-9bb9-2a28369d0fef.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.003', 'forward': '0.059', 'batch_size': '1', 'rtf': '0.030'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.85it/s]rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.81it/s]                                                                                          rtf_avg: 0.030: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.73it/s]
+2025-02-26 14:49:48,716 - core.utils.asr - INFO - 语音识别耗时: 0.065s | 结果: 121。
+2025-02-26 14:49:48,716 - core.handle.audioHandle - INFO - 识别文本: 121。
+send_tts_message: None
+2025-02-26 14:49:54,221 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:49:54,234 - core.connection - INFO - 大模型说出第一句话: 嗨
+2025-02-26 14:49:57,823 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort"}
+2025-02-26 14:49:57,823 - core.handle.abortHandle - INFO - Abort message received
+2025-02-26 14:49:57,824 - core.handle.abortHandle - INFO - Abort message received-end
+2025-02-26 14:49:57,861 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:49:59,678 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:49:59,703 - core.utils.asr - INFO - 音频文件保存耗时: 0.006s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_d7d1779d-b89b-442c-b630-b04cfdcf0b73.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.003', 'forward': '0.059', 'batch_size': '1', 'rtf': '0.034'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.80it/s]rtf_avg: 0.034: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.76it/s]                                                                                          rtf_avg: 0.034: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.66it/s]
+2025-02-26 14:49:59,773 - core.utils.asr - INFO - 语音识别耗时: 0.070s | 结果: 喂喂喂。
+2025-02-26 14:49:59,774 - core.handle.audioHandle - INFO - 识别文本: 喂喂喂。
+send_tts_message: None
+2025-02-26 14:50:00,271 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:50:00,474 - core.connection - INFO - 大模型说出第一句话: 怎么了啦，有啥子事情嘛？
+2025-02-26 14:50:04,236 - core.connection - ERROR - TTS 任务超时
+2025-02-26 14:50:04,272 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort"}
+2025-02-26 14:50:04,272 - core.handle.abortHandle - INFO - Abort message received
+2025-02-26 14:50:04,272 - core.handle.abortHandle - INFO - Abort message received-end
+2025-02-26 14:50:04,295 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:50:04,513 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:50:04,574 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_720db87e-50f8-40a6-9a8b-544fe3bc2d2a.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.054', 'batch_size': '1', 'rtf': '0.898'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.53it/s]rtf_avg: 0.898: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.47it/s]                                                                                          rtf_avg: 0.898: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.37it/s]
+2025-02-26 14:50:04,637 - core.utils.asr - INFO - 语音识别耗时: 0.062s | 结果: 。
+2025-02-26 14:50:04,637 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-02-26 14:50:05,610 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:50:05,821 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:50:05,843 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_722caeba-c84b-4dee-9e52-58ba2c445b77.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.002', 'extract_feat': '0.002', 'forward': '0.055', 'batch_size': '1', 'rtf': '0.305'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.20it/s]rtf_avg: 0.305: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.15it/s]                                                                                          rtf_avg: 0.305: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 18.05it/s]
+2025-02-26 14:50:05,906 - core.utils.asr - INFO - 语音识别耗时: 0.063s | 结果: 。
+2025-02-26 14:50:05,906 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-02-26 14:50:06,788 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:50:08,912 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:50:08,940 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_59260602-f4a7-41c0-944a-e44db087fcb6.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.006', 'extract_feat': '0.004', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.029'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.28it/s]rtf_avg: 0.029: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.23it/s]                                                                                          rtf_avg: 0.029: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.14it/s]
+2025-02-26 14:50:09,007 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 喂喂喂。
+2025-02-26 14:50:09,007 - core.handle.audioHandle - INFO - 识别文本: 喂喂喂。
+send_tts_message: None
+2025-02-26 14:50:09,390 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:50:09,425 - core.connection - INFO - 大模型说出第一句话: 嗨嗨
+2025-02-26 14:50:09,973 - core.providers.tts.base - INFO - 语音生成成功: 嗨:tmp/tts-2025-02-26@7e85940094ae4346841e71842e4dbf8e.wav，重试0次
+2025-02-26 14:50:10,945 - core.providers.tts.base - INFO - 语音生成成功: 121是什么梗呀？给我解释一下嘛。:tmp/tts-2025-02-26@7b00348c52f84f08845e53899088c14f.wav，重试0次
+send_tts_message: 121是什么梗呀？给我解释一下嘛。
+2025-02-26 14:50:16,503 - core.providers.tts.base - INFO - 语音生成成功: 怎么了啦，有啥子事情嘛？:tmp/tts-2025-02-26@c0c29590253d4835817f25eeb7385f11.wav，重试0次
+send_tts_message: 怎么了啦，有啥子事情嘛？
+2025-02-26 14:50:24,298 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort"}
+2025-02-26 14:50:24,298 - core.handle.abortHandle - INFO - Abort message received
+2025-02-26 14:50:24,298 - core.handle.abortHandle - INFO - Abort message received-end
+2025-02-26 14:50:24,342 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:50:24,469 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:50:25,185 - core.providers.tts.base - INFO - 语音生成成功: 嗨嗨:tmp/tts-2025-02-26@67af3e00803e4195aa029f1d37a2633a.wav，重试0次
+2025-02-26 14:50:25,702 - core.providers.tts.base - INFO - 语音生成成功: 听得见吗？有什么好玩的事情分享不？:tmp/tts-2025-02-26@d39a2f606fb44c129d8facae49c93a82.wav，重试0次
+2025-02-26 14:50:26,670 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:50:26,811 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:50:26,832 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_c85a4d1f-acb8-47fa-aee2-2c5710c6425d.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.002', 'extract_feat': '0.002', 'forward': '0.080', 'batch_size': '1', 'rtf': '0.663'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.54it/s]rtf_avg: 0.663: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.51it/s]                                                                                          rtf_avg: 0.663: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.44it/s]
+2025-02-26 14:50:26,933 - core.utils.asr - INFO - 语音识别耗时: 0.101s | 结果: 。
+2025-02-26 14:50:26,934 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-02-26 14:50:32,427 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:50:32,511 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":80}}]}
+2025-02-26 14:50:34,507 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:50:34,557 - core.utils.asr - INFO - 音频文件保存耗时: 0.007s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_e17903f8-8dc5-4e28-80a2-36277a5b2d16.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.003', 'forward': '0.060', 'batch_size': '1', 'rtf': '0.029'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.64it/s]rtf_avg: 0.029: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.59it/s]                                                                                          rtf_avg: 0.029: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.51it/s]
+2025-02-26 14:50:34,624 - core.utils.asr - INFO - 语音识别耗时: 0.067s | 结果: 哎，我的调音量你好你好。
+2025-02-26 14:50:34,624 - core.handle.audioHandle - INFO - 识别文本: 哎，我的调音量你好你好。
+send_tts_message: None
+2025-02-26 14:50:35,060 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:50:35,131 - core.connection - INFO - 大模型说出第一句话: 哈哈
+2025-02-26 14:50:35,837 - core.providers.tts.base - INFO - 语音生成成功: 哈哈:tmp/tts-2025-02-26@2db226d9f8fa4a7ab7a5ff8fdd089060.wav，重试0次
+2025-02-26 14:50:35,861 - core.handle.audioHandle - INFO - 发送第一段语音: 哈哈
+send_tts_message: 哈哈
+2025-02-26 14:50:36,591 - core.providers.tts.base - INFO - 语音生成成功: 你这是想调试音量嘛？试试看调整一下，应该就会好了啦:tmp/tts-2025-02-26@2a9f9d95439b4ac6ab4db545f4482161.wav，重试0次
+send_tts_message: 你这是想调试音量嘛？试试看调整一下，应该就会好了啦
+send_tts_message: None
+2025-02-26 14:50:55,139 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"manual"}
+2025-02-26 14:50:56,789 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:50:56,818 - core.utils.asr - INFO - 音频文件保存耗时: 0.006s | 路径: tmp/asr_0e3dceb8-d1b2-4fbd-9976-7308bab82ba1_7ba5f954-fdd4-4805-ae3a-f2459c3b73c3.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.003', 'forward': '0.080', 'batch_size': '1', 'rtf': '0.049'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.51it/s]rtf_avg: 0.049: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.48it/s]                                                                                          rtf_avg: 0.049: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 12.42it/s]
+2025-02-26 14:50:56,904 - core.utils.asr - INFO - 语音识别耗时: 0.086s | 结果: 你是谁？
+2025-02-26 14:50:56,904 - core.handle.audioHandle - INFO - 识别文本: 你是谁？
+send_tts_message: None
+2025-02-26 14:50:57,308 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:50:57,709 - core.connection - INFO - 大模型说出第一句话: 我是小天啊，你的台湾小伙伴嘛！有什么好玩的事儿可以聊聊哦。
+2025-02-26 14:50:59,285 - core.providers.tts.base - INFO - 语音生成成功: 我是小天啊，你的台湾小伙伴嘛！有什么好玩的事儿可以聊聊哦。:tmp/tts-2025-02-26@dc021452885f4b39aa97da0e91d53feb.wav，重试0次
+2025-02-26 14:50:59,373 - core.handle.audioHandle - INFO - 发送第一段语音: 我是小天啊，你的台湾小伙伴嘛！有什么好玩的事儿可以聊聊哦。
+send_tts_message: 我是小天啊，你的台湾小伙伴嘛！有什么好玩的事儿可以聊聊哦。
+send_tts_message: None
+2025-02-26 14:51:11,891 - core.connection - INFO - 客户端断开连接
+2025-02-26 14:51:11,891 - core.connection - INFO - 连接资源已释放
+2025-02-26 14:51:11,930 - websockets.server - INFO - connection open
+2025-02-26 14:51:11,930 - core.connection - INFO - New connection request - Headers: {'host': '112.28.49.232', 'authorization': 'Bearer test-token', 'client-id': '25e5f73e-ea53-4e50-b4a4-ee6c3b27434d', 'connection': 'Upgrade', 'device-id': '3c:84:27:cc:62:54', 'protocol-version': '1', 'sec-websocket-key': 'remFFutF72MFR01l9P00ow==', 'sec-websocket-version': '13', 'upgrade': 'websocket'}
+2025-02-26 14:51:11,931 - root - INFO - bUsePrivateConfig: False, device_id: 3c:84:27:cc:62:54
+2025-02-26 14:51:11,931 - core.connection - INFO - {'type': 'hello', 'version': 1, 'transport': 'websocket', 'audio_params': {'format': 'opus', 'sample_rate': 16000, 'channels': 1, 'frame_duration': 60}, 'session_id': '1fe0fb82-bb4f-44a9-9e32-8a215a08a382'}
+2025-02-26 14:51:11,974 - core.handle.textHandle - INFO - 收到文本消息：{"type":"hello","version": 1,"transport":"websocket","audio_params":{"format":"opus", "sample_rate":16000, "channels":1, "frame_duration":60}}
+2025-02-26 14:51:11,994 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","descriptors":[{"name":"Speaker","description":"当前 AI 机器人的扬声器","properties":{"volume":{"description":"当前音量值","type":"number"}},"methods":{"SetVolume":{"description":"设置音量","parameters":{"volume":{"description":"0到100之间的整数","type":"number"}}}}}]}
+2025-02-26 14:51:12,304 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"detect","text":"你好小智"}
+send_tts_message: None
+2025-02-26 14:51:12,335 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"iot","states":[{"name":"Speaker","state":{"volume":80}}]}
+2025-02-26 14:51:12,773 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:51:12,790 - core.connection - INFO - 大模型说出第一句话: 嗨
+2025-02-26 14:51:13,566 - core.providers.tts.base - INFO - 语音生成成功: 嗨:tmp/tts-2025-02-26@133787a9c4a54a09a418a0c5f0b00a84.wav，重试0次
+2025-02-26 14:51:13,587 - core.handle.audioHandle - INFO - 发送第一段语音: 嗨
+send_tts_message: 嗨
+2025-02-26 14:51:14,542 - core.providers.tts.base - INFO - 语音生成成功: 有什么好玩的事吗？或者你只是想来找我闲聊解解闷？:tmp/tts-2025-02-26@40f70d0b83e849a2b3cfe5f94f484671.wav，重试0次
+send_tts_message: 有什么好玩的事吗？或者你只是想来找我闲聊解解闷？
+send_tts_message: None
+2025-02-26 14:51:19,346 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-02-26 14:51:19,472 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_1fe0fb82-bb4f-44a9-9e32-8a215a08a382_5cf36ffb-aea8-412b-a4c3-d9a82ae871fb.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.071', 'batch_size': '1', 'rtf': '1.181'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.09it/s]rtf_avg: 1.181: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.06it/s]                                                                                          rtf_avg: 1.181: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.00it/s]
+2025-02-26 14:51:19,550 - core.utils.asr - INFO - 语音识别耗时: 0.078s | 结果: .
+2025-02-26 14:51:19,551 - core.handle.audioHandle - INFO - 识别文本: .
+2025-02-26 14:51:21,842 - core.utils.asr - INFO - 音频文件保存耗时: 0.008s | 路径: tmp/asr_1fe0fb82-bb4f-44a9-9e32-8a215a08a382_3f738e59-41af-4900-a355-aee5e0d1568d.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.006', 'extract_feat': '0.004', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.026'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.34it/s]rtf_avg: 0.026: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.29it/s]                                                                                          rtf_avg: 0.026: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.21it/s]
+2025-02-26 14:51:21,908 - core.utils.asr - INFO - 语音识别耗时: 0.066s | 结果: 1加1等于几？
+2025-02-26 14:51:21,908 - core.handle.audioHandle - INFO - 识别文本: 1加1等于几？
+send_tts_message: None
+2025-02-26 14:51:22,413 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:51:22,768 - core.connection - INFO - 大模型说出第一句话: 1加1等于2，这题难不倒我啦。还有啥想知道的？
+2025-02-26 14:51:24,212 - core.providers.tts.base - INFO - 语音生成成功: 1加1等于2，这题难不倒我啦。还有啥想知道的？:tmp/tts-2025-02-26@d859695e26664a38870ac9f61588b2bc.wav，重试0次
+2025-02-26 14:51:24,286 - core.handle.audioHandle - INFO - 发送第一段语音: 1加1等于2，这题难不倒我啦。还有啥想知道的？
+send_tts_message: 1加1等于2，这题难不倒我啦。还有啥想知道的？
+send_tts_message: None
+2025-02-26 14:51:29,094 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"abort","reason":"wake_word_detected"}
+2025-02-26 14:51:29,094 - core.handle.abortHandle - INFO - Abort message received
+2025-02-26 14:51:29,094 - core.handle.abortHandle - INFO - Abort message received-end
+2025-02-26 14:51:29,126 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-02-26 14:51:29,254 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_1fe0fb82-bb4f-44a9-9e32-8a215a08a382_7a3f44a3-8ec1-458c-8529-6d0de2b1154c.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.002', 'forward': '0.058', 'batch_size': '1', 'rtf': '0.967'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.20it/s]rtf_avg: 0.967: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.14it/s]                                                                                          rtf_avg: 0.967: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.03it/s]
+2025-02-26 14:51:29,320 - core.utils.asr - INFO - 语音识别耗时: 0.066s | 结果: ？
+2025-02-26 14:51:29,320 - core.handle.audioHandle - INFO - 识别文本: ？
+2025-02-26 14:51:31,243 - core.utils.asr - INFO - 音频文件保存耗时: 0.005s | 路径: tmp/asr_1fe0fb82-bb4f-44a9-9e32-8a215a08a382_89df8dd0-6d2f-46ad-8d6f-016003359079.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.004', 'extract_feat': '0.003', 'forward': '0.061', 'batch_size': '1', 'rtf': '0.043'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.28it/s]rtf_avg: 0.043: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.24it/s]                                                                                          rtf_avg: 0.043: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 16.15it/s]
+2025-02-26 14:51:31,312 - core.utils.asr - INFO - 语音识别耗时: 0.068s | 结果: 你是谁？
+2025-02-26 14:51:31,312 - core.handle.audioHandle - INFO - 识别文本: 你是谁？
+send_tts_message: None
+2025-02-26 14:51:31,852 - httpx - INFO - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-02-26 14:51:32,397 - core.connection - INFO - 大模型说出第一句话: 我是小天，一个在虚拟世界里陪你聊天的角色。不过咱们现在是语音聊天，挺特别的，对吧？
+2025-02-26 14:51:34,703 - core.providers.tts.base - INFO - 语音生成成功: 我是小天，一个在虚拟世界里陪你聊天的角色。不过咱们现在是语音聊天，挺特别的，对吧？:tmp/tts-2025-02-26@edc341db2d924251aca5ea5ea0d43ebc.wav，重试0次
+2025-02-26 14:51:34,832 - core.handle.audioHandle - INFO - 发送第一段语音: 我是小天，一个在虚拟世界里陪你聊天的角色。不过咱们现在是语音聊天，挺特别的，对吧？
+send_tts_message: 我是小天，一个在虚拟世界里陪你聊天的角色。不过咱们现在是语音聊天，挺特别的，对吧？
+send_tts_message: None
+2025-02-26 14:51:43,351 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"start","mode":"auto"}
+2025-02-26 14:51:43,472 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_1fe0fb82-bb4f-44a9-9e32-8a215a08a382_f510b44a-3974-4ebe-bd65-d048235b79a9.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.009', 'forward': '0.068', 'batch_size': '1', 'rtf': '1.127'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.76it/s]rtf_avg: 1.127: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.70it/s]                                                                                          rtf_avg: 1.127: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 14.63it/s]
+2025-02-26 14:51:43,549 - core.utils.asr - INFO - 语音识别耗时: 0.076s | 结果: .
+2025-02-26 14:51:43,549 - core.handle.audioHandle - INFO - 识别文本: .
+2025-02-26 14:51:43,673 - core.handle.textHandle - INFO - 收到文本消息：{"session_id":"","type":"listen","state":"stop"}
+2025-02-26 14:51:43,699 - core.utils.asr - INFO - 音频文件保存耗时: 0.001s | 路径: tmp/asr_1fe0fb82-bb4f-44a9-9e32-8a215a08a382_6b4fa963-56d3-4cc2-a316-cf960d07f00e.wav
+  0%|[34m          [0m| 0/1 [00:00<?, ?it/s]{'load_data': '0.001', 'extract_feat': '0.001', 'forward': '0.057', 'batch_size': '1', 'rtf': '0.236'}, : 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.64it/s]rtf_avg: 0.236: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.58it/s]                                                                                          rtf_avg: 0.236: 100%|[34m██████████[0m| 1/1 [00:00<00:00, 17.45it/s]
+2025-02-26 14:51:43,764 - core.utils.asr - INFO - 语音识别耗时: 0.065s | 结果: 。
+2025-02-26 14:51:43,765 - core.handle.audioHandle - INFO - 识别文本: 。
+2025-02-26 14:52:21,969 - core.connection - INFO - 客户端断开连接
+2025-02-26 14:52:21,969 - core.connection - INFO - 连接资源已释放
+2025-02-26 14:53:56,392 - websockets.server - INFO - connection rejected (426 Upgrade Required)
+2025-02-26 14:53:56,410 - websockets.server - ERROR - opening handshake failed
+Traceback (most recent call last):
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 354, in conn_handler
+    await connection.handshake(
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 205, in handshake
+    raise self.protocol.handshake_exc
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 138, in accept
+    ) = self.process_request(request)
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 239, in process_request
+    raise InvalidUpgrade(
+websockets.exceptions.InvalidUpgrade: invalid Connection header: keep-alive
+2025-02-26 14:54:45,239 - websockets.server - INFO - connection rejected (426 Upgrade Required)
+2025-02-26 14:54:45,267 - websockets.server - ERROR - opening handshake failed
+Traceback (most recent call last):
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 354, in conn_handler
+    await connection.handshake(
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/asyncio/server.py", line 205, in handshake
+    raise self.protocol.handshake_exc
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 138, in accept
+    ) = self.process_request(request)
+  File "/mnt/anaconda3/envs/speech_server/lib/python3.10/site-packages/websockets/server.py", line 239, in process_request
+    raise InvalidUpgrade(
+websockets.exceptions.InvalidUpgrade: invalid Connection header: keep-alive

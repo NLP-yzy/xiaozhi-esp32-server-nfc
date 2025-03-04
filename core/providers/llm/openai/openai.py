@@ -1,5 +1,7 @@
 from config.logger import setup_logging
 import openai
+import requests
+import json
 from core.providers.llm.base import LLMProviderBase
 
 TAG = __name__
@@ -18,32 +20,43 @@ class LLMProvider(LLMProviderBase):
             logger.bind(tag=TAG).error("你还没配置LLM的密钥，请在配置文件中配置密钥，否则无法正常工作")
         self.client = openai.OpenAI(api_key=self.api_key, base_url=self.base_url)
 
-    def response(self, session_id, dialogue):
+    def response(self, session_id, dialogue, llm_role):
         try:
-            responses = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=dialogue,
+            logger.bind(tag=TAG).info(f"LLMProvider: response llm_role: {llm_role}")
+            device_id = 11
+
+            message = dialogue[-1]["content"]
+            if message == "锄禾日当午":
+                llm_role = {
+                    "tangseng": "唐僧",
+                    "wukong": "孙悟空",
+                    "bajie": "猪八戒",
+                    "shaseng": "沙僧",}.get(llm_role, "error")
+                if llm_role == "error":
+                    yield("抱歉，NFC卡识别结果为")
+
+            elif llm_role != "1":
+                llm_role = "观音菩萨"
+                
+            logger.bind(tag=TAG).info(f"LLMProvider: final response llm_role: {llm_role}")
+            # Make API request
+                # Use a thread to handle the streaming response
+            response = requests.post(
+                f"http://localhost:15001/chat",
+                json={
+                "device": device_id,
+                "role": llm_role,
+                "query": message,
+                "stream": True  # We want streaming response
+            },
                 stream=True
             )
+
+            for chunk in response.iter_content(chunk_size=8192):
+                yield(json.loads(chunk.decode('utf-8'))["message"])
             
-            is_active = True
-            for chunk in responses:
-                try:
-                    # 检查是否存在有效的choice且content不为空
-                    delta = chunk.choices[0].delta if getattr(chunk, 'choices', None) else None
-                    content = delta.content if hasattr(delta, 'content') else ''
-                except IndexError:
-                    content = ''
-                if content:
-                    # 处理标签跨多个chunk的情况
-                    if '<think>' in content:
-                        is_active = False
-                        content = content.split('<think>')[0]
-                    if '</think>' in content:
-                        is_active = True
-                        content = content.split('</think>')[-1]
-                    if is_active:
-                        yield content
+
 
         except Exception as e:
             logger.bind(tag=TAG).error(f"Error in response generation: {e}")
+

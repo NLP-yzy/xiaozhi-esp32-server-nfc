@@ -20,7 +20,8 @@ async def handleTextMessage(conn, message):
         if msg_json["type"] == "hello":
             await handleHelloMessage(conn)
         elif msg_json["type"] == "abort":
-            await handleAbortMessage(conn)
+            print("abort detected")
+            await handleAbortMessage(conn, msg_json)
         elif msg_json["type"] == "listen":
             if "mode" in msg_json:
                 conn.client_listen_mode = msg_json["mode"]
@@ -36,7 +37,7 @@ async def handleTextMessage(conn, message):
                 conn.client_have_voice = False
                 conn.asr_audio.clear()
                 if "text" in msg_json:
-                    await startToChat(conn, msg_json["text"])
+                    await startToChat(conn, "你好呀")
         elif msg_json["type"] == "iot":
             if "descriptors" in msg_json:
                 await handleIotDescriptors(conn, msg_json["descriptors"])

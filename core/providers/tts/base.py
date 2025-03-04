@@ -19,12 +19,12 @@ class TTSProviderBase(ABC):
     def generate_filename(self):
         pass
 
-    def to_tts(self, text):
+    def to_tts(self, text, role):
         tmp_file = self.generate_filename()
         try:
             max_repeat_time = 5
             while not os.path.exists(tmp_file) and max_repeat_time > 0:
-                asyncio.run(self.text_to_speak(text, tmp_file))
+                asyncio.run(self.text_to_speak(text, tmp_file, role))
                 if not os.path.exists(tmp_file):
                     max_repeat_time = max_repeat_time - 1
                     logger.bind(tag=TAG).error(f"语音生成失败: {text}:{tmp_file}，再试{max_repeat_time}次")
@@ -58,7 +58,7 @@ class TTSProviderBase(ABC):
         raw_data = audio.raw_data
 
         # 初始化Opus编码器
-        encoder = opuslib_next.Encoder(16000, 1, opuslib_next.APPLICATION_AUDIO)
+        encoder = opuslib.Encoder(16000, 1, opuslib.APPLICATION_AUDIO)
 
         # 编码参数
         frame_duration = 60  # 60ms per frame
