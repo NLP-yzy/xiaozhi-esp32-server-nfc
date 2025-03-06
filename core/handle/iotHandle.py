@@ -104,7 +104,7 @@ async def handleIotDescriptors(conn, descriptors):
         conn.iot_descriptors[descriptor["name"]] = iot_descriptor
 
     # 暂时从配置文件中设置音量，后期通过意图识别控制音量
-    default_iot_volume = 100
+    default_iot_volume = 50
     if "iot" in conn.config:
         default_iot_volume = conn.config["iot"]["Speaker"]["volume"]
     logger.bind(tag=TAG).info(f"服务端设置音量为{default_iot_volume}")

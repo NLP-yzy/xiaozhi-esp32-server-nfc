@@ -7,9 +7,13 @@ logger = setup_logging()
 
 nfc_role = {
 "040C02200004005E409A6E3B": "tangseng",
+"040C0220000400CEFF8DEF82": "tangseng",
 "040C02200004000E5551F02B": "wukong",
+"040C02200004006E8248F085": "wukong",
 "040C02200004001E1B51F075": "bajie",
+"040C02200004001E5993EFEA": "bajie",
 "040C0220000400AEB147F079": "shaseng",
+"040C0220000400BE3A996EA2": "shaseng",
 }
 async def schedule_with_interrupt(delay, coro):
     """可中断的延迟调度"""
@@ -65,6 +69,7 @@ async def handleAbortMessage(conn, msg_json):
         logger.bind(tag=TAG).info("Abort_NFC message received-end")
         conn.asr_audio.clear()
         conn.reset_vad_states()
+        await asyncio.sleep(0.1) # 等待0.1秒，确保tts打断
         conn.nfc_abort = False
         conn.client_have_voice = True
         conn.client_voice_stop = True

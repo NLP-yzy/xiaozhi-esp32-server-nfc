@@ -17,6 +17,7 @@ async def isLLMWantToFinish(last_text):
 
 async def sendAudioMessage(conn, audios, text):
     # 发送句子开始消息
+    print("SendAudioMessage!!!!!!!!!!!! 函数起点")
     if text == conn.tts_first_text:
         logger.bind(tag=TAG).info(f"发送第一段语音: {text}")
         conn.tts_start_speak_time = time.perf_counter()
@@ -28,7 +29,12 @@ async def sendAudioMessage(conn, audios, text):
     play_position = 0  # 已播放的时长（毫秒）
 
     for opus_packet in audios:
-        if conn.client_abort or conn.nfc_abort:
+        if conn.client_abort:
+            print("sendAudioMessage abort detected!!!!!!!!!!!!!!!!!!!!!!")
+            return
+        if conn.nfc_abort:
+            print("sendAudioMessage NFC abort detected!!!!!!!!!!!!!!!!!!!!!!")
+            conn.nfc_abort = False
             return
 
         # 计算当前包的预期发送时间
@@ -46,7 +52,7 @@ async def sendAudioMessage(conn, audios, text):
     await send_tts_message(conn, "sentence_end", text)
     # 发送结束消息（如果是最后一个文本）
     if conn.llm_finish_task and text == conn.tts_last_text:
-        
+        conn.nfc_abort = False
         await send_tts_message(conn, 'stop', None)
         if await isLLMWantToFinish(text):
             await conn.close()

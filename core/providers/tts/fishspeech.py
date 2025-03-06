@@ -131,7 +131,7 @@ class TTSProvider(TTSProviderBase):
             "temperature": self.temperature,
             "streaming": self.streaming,
             "use_memory_cache": self.use_memory_cache,
-            "seed": 4000,
+            "seed": 300,
         }
         print("tts_id", self.reference_id)
         response = requests.post(

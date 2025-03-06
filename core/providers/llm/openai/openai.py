@@ -2,6 +2,7 @@ from config.logger import setup_logging
 import openai
 import requests
 import json
+import time
 from core.providers.llm.base import LLMProviderBase
 
 TAG = __name__
@@ -33,7 +34,8 @@ class LLMProvider(LLMProviderBase):
                     "bajie": "猪八戒",
                     "shaseng": "沙僧",}.get(llm_role, "error")
                 if llm_role == "error":
-                    yield("抱歉NFC卡识别结果为错误角色")
+                    time.sleep(0.3)
+                    yield("您好, 该卡片没有认证过。")
                     return
 
             elif llm_role != "1":

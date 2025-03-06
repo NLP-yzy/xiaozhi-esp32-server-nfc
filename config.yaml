@@ -43,7 +43,7 @@ manager:
   port: 8002
 iot:
   Speaker:
-    volume: 70
+    volume: 60
 xiaozhi:
   type: hello
   version: 1
