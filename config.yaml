@@ -83,7 +83,7 @@ selected_module:
 
 ASR:
   FunASR:
-    type: fun_local
+    type: funasr_http
     model_dir: models/SenseVoiceSmall
     output_dir: tmp/
   DoubaoASR:

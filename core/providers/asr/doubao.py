@@ -165,7 +165,6 @@ class ASRProvider(ASRProviderBase):
             async with websockets.connect(self.ws_url, additional_headers=auth_header) as websocket:
                 # Prepare request data
                 request_params = self._construct_request(str(uuid.uuid4()))
-                print(request_params)
                 payload_bytes = str.encode(json.dumps(request_params))
                 payload_bytes = gzip.compress(payload_bytes)
                 full_client_request = self._generate_header()
