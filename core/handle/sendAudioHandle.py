@@ -17,7 +17,6 @@ async def isLLMWantToFinish(last_text):
 
 async def sendAudioMessage(conn, audios, text):
     # 发送句子开始消息
-    print("SendAudioMessage!!!!!!!!!!!! 函数起点")
     if text == conn.tts_first_text:
         logger.bind(tag=TAG).info(f"发送第一段语音: {text}")
         conn.tts_start_speak_time = time.perf_counter()
@@ -30,10 +29,8 @@ async def sendAudioMessage(conn, audios, text):
 
     for opus_packet in audios:
         if conn.client_abort:
-            print("sendAudioMessage abort detected!!!!!!!!!!!!!!!!!!!!!!")
             return
         if conn.nfc_abort:
-            print("sendAudioMessage NFC abort detected!!!!!!!!!!!!!!!!!!!!!!")
             conn.nfc_abort = False
             return
 
@@ -54,13 +51,12 @@ async def sendAudioMessage(conn, audios, text):
     if conn.llm_finish_task and text == conn.tts_last_text:
         conn.nfc_abort = False
         await send_tts_message(conn, 'stop', None)
-        if await isLLMWantToFinish(text):
+        if conn.close_after_chat:
             await conn.close()
 
 
 async def send_tts_message(conn, state, text=None):
     """发送 TTS 状态消息"""
-    print(f"stop咯~~~~~~~~~~~~~~~~~~~~~~~{state}")
     message = {
         "type": "tts",
         "state": state,
@@ -76,7 +72,6 @@ async def send_tts_message(conn, state, text=None):
 
 async def send_stt_message(conn, text):
     """发送 STT 状态消息"""
-    print(f"send stt message: {text}")
     stt_text = get_string_no_punctuation_or_emoji(text)
     await conn.websocket.send(json.dumps({
         "type": "stt",

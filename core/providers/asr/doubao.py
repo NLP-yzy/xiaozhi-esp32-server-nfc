@@ -228,7 +228,7 @@ class ASRProvider(ASRProviderBase):
         return pcm_data
 
     @staticmethod
-    def read_wav_info(data: io.BytesIO = None) -> (int, int, int, int, int):
+    def read_wav_info(data: io.BytesIO = None):
         with io.BytesIO(data) as _f:
             wave_fp = wave.open(_f, 'rb')
             nchannels, sampwidth, framerate, nframes = wave_fp.getparams()[:4]
@@ -236,7 +236,7 @@ class ASRProvider(ASRProviderBase):
         return nchannels, sampwidth, framerate, nframes, len(wave_bytes)
 
     @staticmethod
-    def slice_data(data: bytes, chunk_size: int) -> (list, bool):
+    def slice_data(data: bytes, chunk_size: int):
         """
         slice data
         :param data: wav data

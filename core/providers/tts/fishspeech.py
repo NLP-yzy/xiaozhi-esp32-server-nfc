@@ -20,7 +20,6 @@ logger = setup_logging()
 class ServeReferenceAudio(BaseModel):
     audio: bytes
     text: str
-
     @model_validator(mode="before")
     def decode_audio(cls, values):
         audio = values.get("audio")
@@ -107,16 +106,20 @@ class TTSProvider(TTSProviderBase):
     def generate_filename(self, extension=".wav"):
         return os.path.join(self.output_file, f"tts-{datetime.now().date()}@{uuid.uuid4().hex}{extension}")
 
-    async def text_to_speak(self, text, output_file, role):
+    async def text_to_speak(self, text, output_file, role, tts_dyn):
         # Prepare reference data
 
         # if role == "init":
-        #     self.reference_id = "wukong"
+        #     self.reference_id = "wukong";
         # else:
         #     self.reference_id = "bajie"
         self.reference_id = role
+
         if role == "1":
             self.reference_id = "wangjiaer"
+        
+        if tts_dyn == "voiceover":
+            self.reference_id = "1"
 
         data = {
             "text": text.encode("utf-8"),
@@ -133,7 +136,6 @@ class TTSProvider(TTSProviderBase):
             "use_memory_cache": self.use_memory_cache,
             "seed": 4000,
         }
-        print("tts_id", self.reference_id)
         response = requests.post(
             self.api_url,
             json=data,
@@ -148,9 +150,6 @@ class TTSProvider(TTSProviderBase):
 
             with open(output_file, "wb") as audio_file:
                 audio_file.write(audio_content)
-                
-
-
         else:
             print(f"Request failed with status code {response.status_code}")
             print(response.json())

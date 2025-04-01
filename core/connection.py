@@ -24,7 +24,7 @@ from core.utils.auth_code_gen import AuthCodeGenerator
 TAG = __name__
 
 class ConnectionHandler:
-    def __init__(self, config: Dict[str, Any], _vad, _asr, _llm, _tts, _music):
+    def __init__(self, config: Dict[str, Any], _vad, _asr, _llm, _tts, _music, _intent, _nfc):
         self.config = config
         self.logger = setup_logging()
         self.auth = AuthMiddleware(config)
@@ -52,6 +52,8 @@ class ConnectionHandler:
         self.asr = _asr
         self.llm = _llm
         self.tts = _tts
+        self.intent = _intent
+        self.nfc_db = _nfc
         self.dialogue = None
 
         # vad相关变量
@@ -69,6 +71,7 @@ class ConnectionHandler:
         self.llm_finish_task = False
         self.llm_role = "1"
         self.dialogue = Dialogue()
+        
 
         # tts相关变量
         self.tts_first_text = None
@@ -78,6 +81,7 @@ class ConnectionHandler:
 
         # iot相关变量
         self.iot_descriptors = {}
+        self.device_volume = self.config["iot"]["Speaker"]["volume"]
 
         self.cmd_exit = self.config["CMD_exit"]
         self.max_cmd_length = 0
@@ -85,10 +89,16 @@ class ConnectionHandler:
             if len(cmd) > self.max_cmd_length:
                 self.max_cmd_length = len(cmd)
 
+        self.device_id = "null"
         self.private_config = None
         self.auth_code_gen = AuthCodeGenerator.get_instance()
         self.is_device_verified = False  # 添加设备验证状态标志
         self.music_handler = _music
+        self.close_after_chat = False
+        self.use_function_call_mode = False
+        if self.config["selected_module"]["Intent"] == 'function_call':
+            self.use_function_call_mode = True
+        self.llm_intent = self.config["selected_module"]["Intent"]
 
     async def handle_connection(self, ws):
         try:
@@ -101,14 +111,14 @@ class ConnectionHandler:
             # 进行认证
             await self.auth.authenticate(self.headers)
 
-            device_id = self.headers.get("device-id", None)
+            self.device_id = self.headers.get("device-id", None)
 
             # Load private configuration if device_id is provided
             bUsePrivateConfig = self.config.get("use_private_config", False)
-            self.logger.bind(tag=TAG).info(f"bUsePrivateConfig: {bUsePrivateConfig}, device_id: {device_id}")
-            if bUsePrivateConfig and device_id:
+            self.logger.bind(tag=TAG).info(f"bUsePrivateConfig: {bUsePrivateConfig}, device_id: {self.device_id}")
+            if bUsePrivateConfig and self.device_id:
                 try:
-                    self.private_config = PrivateConfig(device_id, self.config, self.auth_code_gen)
+                    self.private_config = PrivateConfig(self.device_id, self.config, self.auth_code_gen)
                     await self.private_config.load_or_create()
                     # 判断是否已经绑定
                     owner = self.private_config.get_owner()
@@ -121,9 +131,9 @@ class ConnectionHandler:
                     if all([llm, tts]):
                         self.llm = llm
                         self.tts = tts
-                        self.logger.bind(tag=TAG).info(f"Loaded private config and instances for device {device_id}")
+                        self.logger.bind(tag=TAG).info(f"Loaded private config and instances for device {self.device_id}")
                     else:
-                        self.logger.bind(tag=TAG).error(f"Failed to create instances for device {device_id}")
+                        self.logger.bind(tag=TAG).error(f"Failed to create instances for device {self.device_id}")
                         self.private_config = None
                 except Exception as e:
                     self.logger.bind(tag=TAG).error(f"Error initializing private config: {e}")
@@ -190,7 +200,7 @@ class ConnectionHandler:
                 # 发送验证码语音提示
                 text = f"请在后台输入验证码：{' '.join(auth_code)}"
                 self.recode_first_last_text(text)
-                future = self.executor.submit(self.speak_and_play, text)
+                future = self.executor.submit(self.speak_and_play, text, "system")
                 self.tts_queue.put(future)
             return False
         return True
@@ -216,23 +226,19 @@ class ConnectionHandler:
         response_message = []
         processed_chars = 0  # 跟踪已处理的字符位置
         try:
-            start_time = time.time()
-            llm_responses = self.llm.response(self.session_id, self.dialogue.get_llm_dialogue(), self.llm_role)
+            llm_responses = self.llm.response(self.device_id, self.dialogue.get_llm_dialogue(), self.llm_role)
         except Exception as e:
             self.logger.bind(tag=TAG).error(f"LLM 处理出错 {query}: {e}")
             return None
         # 提交 TTS 任务到线程池
         self.llm_finish_task = False
         init_flag = False
-        for content in llm_responses:
+        for tts_dyn, content in llm_responses:
             response_message.append(content)
             # 如果中途被打断，就停止生成
             if self.client_abort:
                 break
 
-            end_time = time.time()  # 记录结束时间
-            self.logger.bind(tag=TAG).debug(f"大模型返回时间时间: {end_time - start_time} 秒, 生成token={content}")
-            # 合并当前全部文本并处理未分割部分
             full_text = "".join(response_message)
             current_text = full_text[processed_chars:]  # 从未处理的位置开始
 
@@ -250,7 +256,7 @@ class ConnectionHandler:
                 segment_text = get_string_no_punctuation_or_emoji(segment_text_raw)
                 if segment_text and init_flag is False:
                     self.recode_first_last_text(segment_text)
-                    future = self.executor.submit(self.speak_and_play, segment_text)
+                    future = self.executor.submit(self.speak_and_play, segment_text, tts_dyn)
                     self.tts_queue.put(future)
                     processed_chars += len(segment_text_raw)  # 更新已处理字符位置
                     init_flag = True
@@ -262,7 +268,7 @@ class ConnectionHandler:
             segment_text = get_string_no_punctuation_or_emoji(remaining_text)
             if segment_text:
                 self.recode_first_last_text(segment_text)
-                future = self.executor.submit(self.speak_and_play, segment_text)
+                future = self.executor.submit(self.speak_and_play, segment_text, tts_dyn)
                 self.tts_queue.put(future)
 
         self.llm_finish_task = True
@@ -301,8 +307,8 @@ class ConnectionHandler:
                     continue
                 if not self.client_abort and not self.nfc_abort:
                     # 如果没有中途打断就发送语音
-                    print("如果没有中途打断就发送语音")
                     self.audio_play_queue.put((opus_datas, text))
+                    time.sleep(duration / 1000)
                 if self.tts.delete_audio_file and os.path.exists(tts_file):
                     os.remove(tts_file)
             except Exception as e:
@@ -319,17 +325,16 @@ class ConnectionHandler:
             text = None
             try:
                 opus_datas, text = self.audio_play_queue.get()
-                print("准备发送语音数据！！！！！！！！！！！！！")
                 future = asyncio.run_coroutine_threadsafe(sendAudioMessage(self, opus_datas, text), self.loop)
                 future.result()
             except Exception as e:
                 self.logger.bind(tag=TAG).error(f"audio_play_priority priority_thread: {text}{e}")
 
-    def speak_and_play(self, text):
+    def speak_and_play(self, text, tts_dyn):
         if text is None or len(text) <= 0:
             self.logger.bind(tag=TAG).info(f"无需tts转换，query为空，{text}")
             return None, text
-        tts_file = self.tts.to_tts(text, self.llm_role)
+        tts_file = self.tts.to_tts(text, self.llm_role, tts_dyn)
         if tts_file is None:
             self.logger.bind(tag=TAG).error(f"tts转换失败，{text}")
             return None, text

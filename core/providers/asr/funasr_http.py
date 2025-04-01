@@ -9,19 +9,12 @@ import uuid
 import opuslib_next
 from core.providers.asr.base import ASRProviderBase
 from websockets.sync.client import connect
-from io import BytesIO
 import opuslib
-from funasr import AutoModel
-from funasr.utils.postprocess_utils import rich_transcription_postprocess
-
 import os
 import time
-import websockets, ssl
-import asyncio
+import ssl
 import json
-import traceback
 from multiprocessing import Process, Manager
-import logging
 from queue import Queue
 
 
@@ -43,7 +36,6 @@ output_dir=None
 use_itn=1
 mode='offline'
 # 全局变量
-from queue import Queue
 
 voices = Queue()
 offline_msg_done=False
@@ -62,7 +54,7 @@ def record_from_scp(pcm_data):
     ssl_context = ssl.SSLContext()
     ssl_context.check_hostname = False
     ssl_context.verify_mode = ssl.CERT_NONE
-    # uri = f"wss://{host}:{port}"
+    # url = f"wss://{host}:{port}"
     # with connect(f"wss://{host}:{port}",ssl_context=ssl_context) as websocket:
     with connect(f"ws://{host}:{port}",ssl_context=None) as websocket:
         # 只处理 hotwords 信息
@@ -159,84 +151,6 @@ async def message(id):
 
     return last_text
 
-async def ws_client(id, chunk_begin, chunk_size, pcm_data):
-    global websocket, voices, offline_msg_done, offline_msg_done_event
-    offline_msg_done_event = asyncio.Event()
-    results = []
-    # for i in range(chunk_begin, chunk_begin + chunk_size):
-    offline_msg_done = False
-    voices = Queue()
-
-    ssl_context = ssl.SSLContext()
-    ssl_context.check_hostname = False
-    ssl_context.verify_mode = ssl.CERT_NONE
-    uri = f"wss://{host}:{port}"
-
-    print(f"Connecting to {uri} ")
-
-    websocket_start_time = time.time()
-    # 这里连接到WebSocket
-    async with websockets.connect(uri, subprotocols=["binary"], ping_interval=None, ssl=ssl_context) as websocket:
-        
-        
-        task = asyncio.create_task(record_from_scp(pcm_data, 0, 1))  
-        task3 = asyncio.create_task(message(f"{id}_{0}"))  
-        
-        # 异步等待两个任务的完成
-        result = await asyncio.gather(task, task3)
-        print("result:", result[1])  
-
-        # 将每个文件的结果添加到results中
-        results.append(result[1])
-    print("time:",time.time()-websocket_start_time)
-
-    return results
-
-def one_thread(id, chunk_begin, chunk_size, return_dict, audio_in):
-    """
-    每个进程内的任务
-    :param id: 进程 ID
-    :param chunk_begin: 当前进程要处理的音频文件的起始索引
-    :param chunk_size: 当前进程要处理的音频文件数量
-    :param wavs: 音频文件列表
-    :param return_dict: 用于存放结果的字典
-    """
-    results = asyncio.run(ws_client(id, chunk_begin, chunk_size, audio_in))
-    print("one_thread results:", results)
-    return_dict[id] = results  # 将结果存放到共享字典中
-
-def process_audio_in(audio_in):
-    """
-    处理音频输入并返回结果
-    :param audio_in: 音频输入文件路径或路径列表
-    :return: 结果文本列表
-    """
-    
-
-    total_len = len(audio_in)
-    chunk_size = total_len  # 默认只有一个进程
-
-    manager = Manager()  # 使用 Manager 创建共享字典
-    return_dict = manager.dict()
-
-    # 启动一个进程来处理音频
-    p = Process(target=one_thread, args=(0, 0, chunk_size, return_dict, audio_in))
-    p.start()
-    p.join()  # 等待进程完成
-
-    # 获取进程返回的结果
-    return return_dict.get(0, [])
-
-def run_audio_processing(audio_in):
-    """
-    运行音频处理的主函数
-    :param audio_in: 输入音频路径
-    :return: 返回处理后的文本结果
-    """
-    result = process_audio_in(audio_in)  # 默认线程数为 1
-    return result[0]
-
-
 # 捕获标准输出
 class CaptureOutput:
     def __enter__(self):
@@ -262,14 +176,7 @@ class ASRProvider(ASRProviderBase):
 
         # 确保输出目录存在
         os.makedirs(self.output_dir, exist_ok=True)
-        with CaptureOutput():
-            self.model = AutoModel(
-                model=self.model_dir,
-                vad_kwargs={"max_single_segment_time": 30000},
-                disable_update=True,
-                hub="hf"
-                # device="cuda:0",  # 启用GPU加速
-            )
+
 
     def save_audio_to_file(self, opus_data: List[bytes], session_id: str) -> str:
         """将Opus音频数据解码并保存为WAV文件"""

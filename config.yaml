@@ -7,7 +7,7 @@
 server:
   # 服务器监听地址和端口(Server listening address and port)
   ip: 0.0.0.0
-  port: 10663
+  port: 10664
   # 认证配置
   auth:
     # 是否启用认证
@@ -72,6 +72,13 @@ CMD_exit:
   - "退出"
   - "关闭"
 
+database:
+  host: "localhost"
+  port: 33306
+  user: "root"
+  password: "333333"
+  database: "esp32nfc"
+
 # 具体处理时选择的模块(The module selected for specific processing)
 selected_module:
   ASR: FunASR
@@ -80,6 +87,23 @@ selected_module:
   LLM: AliLLM
   # TTS将根据配置名称对应的type调用实际的TTS适配器
   TTS: FishSpeech
+  # 意图识别模块，默认不开启。开启后，可以播放音乐、控制音量、识别退出指令
+  # 意图识别使用intent_llm，优点：通用性强，缺点：增加串行前置意图识别模块，会增加处理时间
+  # 意图识别使用function_call，缺点：需要所选择的LLM支持function_call，优点：按需调用工具、速度快
+  # 如果意图识别设置成 function_call，建议把LLM设置成：DoubaoLLM，使用的具体model_name是：doubao-pro-32k-functioncall-241028
+  Intent: nointent
+
+Intent:
+  # 不使用意图识别
+  nointent:
+    # 不需要动
+    type: nointent
+  intent_llm:
+    # 不需要动
+    type: intent_llm
+  function_call:
+    # 不需要动
+    type: nointent
 
 ASR:
   FunASR:

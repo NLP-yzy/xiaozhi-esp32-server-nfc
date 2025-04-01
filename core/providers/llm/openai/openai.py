@@ -24,7 +24,6 @@ class LLMProvider(LLMProviderBase):
     def response(self, session_id, dialogue, llm_role):
         try:
             logger.bind(tag=TAG).info(f"LLMProvider: response llm_role: {llm_role}")
-            device_id = 11
 
             message = dialogue[-1]["content"]
             if message == "锄禾日当午":
@@ -35,7 +34,7 @@ class LLMProvider(LLMProviderBase):
                     "shaseng": "沙僧",}.get(llm_role, "error")
                 if llm_role == "error":
                     time.sleep(0.3)
-                    yield("您好, 该卡片没有认证过。")
+                    yield(("system", "哈哈，这张卡上的数据不对哦！"))
                     return
 
             elif llm_role != "1":
@@ -47,7 +46,7 @@ class LLMProvider(LLMProviderBase):
             response = requests.post(
                 f"http://localhost:15001/chat",
                 json={
-                "device": device_id,
+                "device": session_id,
                 "role": llm_role,
                 "query": message,
                 "stream": True  # We want streaming response
@@ -56,9 +55,8 @@ class LLMProvider(LLMProviderBase):
             )
 
             for chunk in response.iter_content(chunk_size=8192):
-                yield(json.loads(chunk.decode('utf-8'))["message"])
+                yield((json.loads(chunk.decode('utf-8'))["status"], json.loads(chunk.decode('utf-8'))["message"])) # status
             
-
 
         except Exception as e:
             logger.bind(tag=TAG).error(f"Error in response generation: {e}")

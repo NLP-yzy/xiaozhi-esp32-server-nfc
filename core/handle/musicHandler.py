@@ -70,20 +70,20 @@ class MusicHandler:
             self.refresh_time = self.music_config.get("refresh_time", 60)
         else:
             self.music_dir = os.path.abspath("./music")
-            self.music_related_keywords = ["来一首歌", "唱一首歌", "播放音乐", "来点音乐", "背景音乐", "放首歌",
-                                           "播放歌曲", "来点背景音乐", "我想听歌", "我要听歌", "放点音乐", "唱首歌"]
+            self.music_related_keywords = ["来一首", "唱一首", "播放音乐", "来点音乐", "放首歌",
+                                           "播放歌曲", "来点背景音乐", "我想听歌", "我要听歌", "放点音乐", "唱首歌", "来首歌"]
             self.music_ext = (".mp3", ".wav", ".p3")
             self.refresh_time = 60
 
         # 获取音乐文件列表
         self.music_files = MusicManager(self.music_dir, self.music_ext).get_music_files()
         self.scan_time = time.time()
-        logger.bind(tag=TAG).debug(f"找到的音乐文件: {self.music_files}")
+        logger.bind(tag=TAG).info(f"找到的音乐文件: {self.music_files}")
 
     async def handle_music_command(self, conn, text):
         """处理音乐播放指令"""
         clean_text = re.sub(r'[^\w\s]', '', text).strip()
-        logger.bind(tag=TAG).debug(f"检查是否是音乐命令: {clean_text}")
+        logger.bind(tag=TAG).info(f"检查是否是音乐命令: {clean_text}")
 
         # 尝试匹配具体歌名
         if os.path.exists(self.music_dir):

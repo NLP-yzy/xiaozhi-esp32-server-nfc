@@ -8,12 +8,16 @@ logger = setup_logging()
 nfc_role = {
 "040C02200004005E409A6E3B": "tangseng",
 "040C0220000400CEFF8DEF82": "tangseng",
+"040C0220000400BE774DF0A5": "tangseng",
 "040C02200004000E5551F02B": "wukong",
 "040C02200004006E8248F085": "wukong",
+"040C02200004004E2C4FF00C": "wukong",
 "040C02200004001E1B51F075": "bajie",
 "040C02200004001E5993EFEA": "bajie",
+"040C02200004000E3054F04B": "bajie",
 "040C0220000400AEB147F079": "shaseng",
 "040C0220000400BE3A996EA2": "shaseng",
+"040C0220000400DE7C8CEF10": "shaseng",
 }
 async def schedule_with_interrupt(delay, coro):
     """可中断的延迟调度"""
@@ -42,7 +46,6 @@ async def send_stt_message(conn, text):
 
 async def send_tts_message(conn, state, text=None):
     """发送 TTS 状态消息"""
-    print("TTS_start!!!!")
     message = {
         "type": "tts",
         "state": state,
@@ -62,8 +65,13 @@ async def handleAbortMessage(conn, msg_json):
     if nfc_info:
         logger.bind(tag=TAG).info(f"nfc_info: {nfc_info}")
         conn.nfc_abort = True
-        conn.llm_role = nfc_role.get(nfc_info, "1")
-        print("nfc刷卡，打断tts播放")
+        # 根据NFC卡信息获取角色
+        conn.llm_role = nfc_role.get(nfc_info[0:24], "1")
+        if conn.llm_role == "1":
+            conn.llm_role = "观音菩萨"
+            logger.bind(tag=TAG).info("NFC info check, nfc_info:{}, device_id:{}".format(nfc_info, conn.device_id))
+            conn.llm_role = await conn.nfc_db.get_role_by_nfc(nfc_info, conn.device_id)
+
         await conn.websocket.send(json.dumps({"type": "tts", "state": "stop", "session_id": conn.session_id}))
         conn.clearSpeakStatus()
         logger.bind(tag=TAG).info("Abort_NFC message received-end")
@@ -73,9 +81,7 @@ async def handleAbortMessage(conn, msg_json):
         conn.nfc_abort = False
         conn.client_have_voice = True
         conn.client_voice_stop = True
-        print("???????????")
         await send_stt_message(conn, "NFC刷卡")
-        print("************")
         conn.executor.submit(conn.chat, "锄禾日当午")
 
     else:
